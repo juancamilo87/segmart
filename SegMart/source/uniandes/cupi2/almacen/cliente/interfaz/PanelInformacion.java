@@ -250,7 +250,51 @@ public class PanelInformacion extends JPanel implements ActionListener
         	add(informacion);
     		
         }else if(ventanaPrincipal.darPaso().equalsIgnoreCase("Resumen")){
+        	JPanel informacion = new JPanel();
+        	informacion.setBorder( new TitledBorder( "Resumen" ) );
+        	informacion.setLayout( new BorderLayout( ) );
+        	FlowLayout fl = new FlowLayout();
         	
+        	JPanel centro = new JPanel(fl);
+        	GridLayout gl = new GridLayout(2,1);
+        	gl.setHgap(10);
+        	JPanel tipo = new JPanel(gl);
+        	JLabel lTipo = new JLabel("Tipo de análisis:");
+        	JLabel rTipo = new JLabel(ventanaPrincipal.darTipo());
+        	tipo.add(lTipo);
+        	tipo.add(rTipo);
+        	centro.add(tipo);
+        	
+        	GridLayout glm = new GridLayout(2,2);
+        	glm.setHgap(10);
+        	JPanel mercado = new JPanel(glm);
+        	mercado.setBorder(new TitledBorder("Información Mercado"));
+        	JLabel lMercado = new JLabel("Información General:");
+        	JLabel rMercado = new JLabel("C:/blablalba/babfda");
+        	JLabel lEstilo = new JLabel("Estilo de vida:");
+        	JLabel rEstilo = new JLabel("C:/blab324ba/babfda");
+        	mercado.add(lMercado);
+        	mercado.add(rMercado);
+        	mercado.add(lEstilo);
+        	mercado.add(rEstilo);
+        	centro.add(mercado);
+        	
+        	GridLayout glp = new GridLayout(2,2);
+        	glm.setHgap(10);
+        	JPanel producto = new JPanel(glm);
+        	mercado.setBorder(new TitledBorder("Información Consumo"));
+        	JLabel lIntencion = new JLabel("Intención de compra:");
+        	JLabel rIntencion = new JLabel("C:/blablalba/babfda");
+        	JLabel lProducto = new JLabel("Características de productos:");
+        	JLabel rProducto = new JLabel("C:/blab324ba/babfda");
+        	producto.add(lIntencion);
+        	producto.add(rIntencion);
+        	producto.add(lProducto);
+        	producto.add(rProducto);
+        	centro.add(producto);
+        	
+        	informacion.add(centro,BorderLayout.CENTER);
+        	add(informacion);
     		
         }else if(ventanaPrincipal.darPaso().equalsIgnoreCase("Resultados")){
     		
