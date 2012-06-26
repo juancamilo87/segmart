@@ -21,7 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import uniandes.cupi2.almacen.cliente.mundo.PuntoDeVenta;
+
 
 /**
  * Esta es la ventana principal de la aplicación.
