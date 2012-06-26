@@ -252,6 +252,9 @@ public class InterfazPrograma extends JFrame
     	paso = "Tipo de Analisis";
     	barraProgreso.refrescar();
     }
+    public String darTipo(){
+    	return tipo_analisis;
+    }
     // -----------------------------------------------------------------
     // Main
     // -----------------------------------------------------------------
