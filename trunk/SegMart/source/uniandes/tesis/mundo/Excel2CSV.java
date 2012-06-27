@@ -17,16 +17,24 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
+/**
+ * @author Juan Camilo Garc'ia
+ *
+ */
 public class Excel2CSV {
 
+	/**
+	 * 
+	 */
 	public Excel2CSV() {
 
 	}
 
 	/**
+	 * @param path 
 	 * @throws Exception
 	 */
-	public static void echoAsCSV(String path) throws Exception {
+	public void echoAsCSV(String path) throws Exception {
 		Row row = null;
 		double maxRows = 0;
 		double maxCols = 0;
@@ -97,7 +105,11 @@ public class Excel2CSV {
 
 	}
 
-	public static void verificarFormatoArchivo(Sheet sheet) throws Exception {
+	/**
+	 * @param sheet
+	 * @throws Exception
+	 */
+	private void verificarFormatoArchivo(Sheet sheet) throws Exception {
 		double maxRows = 0;
 		double maxCols = 0;
 		double cellValue = sheet.getRow(1).getCell(0).getNumericCellValue();
