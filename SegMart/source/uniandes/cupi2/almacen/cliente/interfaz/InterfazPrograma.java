@@ -134,6 +134,7 @@ public class InterfazPrograma extends JFrame
     }
     
     public void cambiarTipoAnalisis(String tipo){
+    	panelBotones.cambiarListo();
     	tipo_analisis=tipo;
     }
     

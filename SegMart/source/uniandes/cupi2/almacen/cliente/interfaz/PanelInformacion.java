@@ -263,7 +263,12 @@ public class PanelInformacion extends JPanel implements ActionListener
         	gl.setHgap(10);
         	JPanel tipo = new JPanel(gl);
         	JLabel lTipo = new JLabel("Tipo de análisis:");
-        	JLabel rTipo = new JLabel(ventanaPrincipal.darTipo());
+        	String sTipo = ventanaPrincipal.darTipo();
+        	JLabel rTipo;
+        	if(sTipo.equals("BUSQUEDA"))
+        		rTipo = new JLabel("Búsqueda de Mercado");
+        	else
+        		rTipo = new JLabel("Creación Producto");
         	tipo.add(lTipo);
         	tipo.add(rTipo);
         	centro.add(tipo);

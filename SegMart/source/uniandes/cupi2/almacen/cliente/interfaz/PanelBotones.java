@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.CompoundBorder;
@@ -45,6 +46,8 @@ public class PanelBotones extends JPanel implements ActionListener
      * Es una referencia a la ventana principal del punto de venta
      */
     private InterfazPrograma ventanaPrincipal;
+    
+    private Boolean listo;
 
     // -----------------------------------------------------------------
     // Atributos de la Interfaz
@@ -90,7 +93,7 @@ public class PanelBotones extends JPanel implements ActionListener
     public PanelBotones( InterfazPrograma ipv )
     {
         ventanaPrincipal = ipv;
-
+        listo = false;
         setLayout( new GridLayout(1,0 ) );
         anterior = new JButton("Anterior");
         siguiente = new JButton("Continuar");
@@ -146,6 +149,10 @@ public class PanelBotones extends JPanel implements ActionListener
     		
     	
     }
+    
+    public void cambiarListo(){
+    	listo = true;
+    }
 
     /**
      * Es el método que se ejecuta cuando se hace click sobre el botón de registrar
@@ -155,7 +162,10 @@ public class PanelBotones extends JPanel implements ActionListener
     {
         String comando = evento.getActionCommand( );
         if(comando.equalsIgnoreCase("SEGUIR"))
+        	if(listo)
             ventanaPrincipal.refrescar("Siguiente");
+        	else
+        		JOptionPane.showMessageDialog(this,"Seleccione un tipo de análisis","Información Incompleta", JOptionPane.INFORMATION_MESSAGE);
         else if(comando.equalsIgnoreCase("REGRESAR"))
         	ventanaPrincipal.refrescar("Anterior");
     }
