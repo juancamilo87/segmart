@@ -76,6 +76,8 @@ public class BarraProgreso extends JPanel
 
 	private JLabel lblTpo8;
 
+	private JLabel lblTpo9;
+
     // -----------------------------------------------------------------
     // Constructores
     // -----------------------------------------------------------------
@@ -101,8 +103,12 @@ public class BarraProgreso extends JPanel
         lblTpo1 = new JLabel("Tipo de Analisis");
         lblTpo2 = new JLabel("Informacion Mercado");
         lblTpo3 = new JLabel("Estilo de Vida");
-        lblTpo4 = new JLabel("Intencion de Compra");
+        lblTpo3.setFont(new Font("Default", Font.PLAIN, 8));
+        lblTpo4 = new JLabel("Información Consumo");
+        lblTpo9 = new JLabel("Intención de Compra");
+        lblTpo9.setFont(new Font("Default", Font.PLAIN, 8));
         lblTpo5 = new JLabel("Caracteristicas de Productos");
+        lblTpo5.setFont(new Font("Default", Font.PLAIN, 8));
         lblTpo6 = new JLabel("Resumen");
         lblTpo7 = new JLabel("Resultados");
         lblTpo8 = new JLabel("Informaci'on General");
@@ -114,6 +120,7 @@ public class BarraProgreso extends JPanel
         lblTpo6.setVisible(false);
         lblTpo7.setVisible(false);
         lblTpo8.setVisible(false);
+        lblTpo9.setVisible(false);
         int y = 5;
         panelLbl = new JPanel();
         panelLbl.setLayout(new MigLayout());
@@ -121,11 +128,12 @@ public class BarraProgreso extends JPanel
         panelLbl.add(lblTpo2, "pos 110 "+y);
         panelLbl.add(lblTpo8, "pos 110 20");
         panelLbl.add(lblTpo2, "pos 110 "+y);
-        panelLbl.add(lblTpo3, "pos 20 "+y);
-        panelLbl.add(lblTpo4, "pos 20 "+y);
-        panelLbl.add(lblTpo5, "pos 20 "+y);
-        panelLbl.add(lblTpo6, "pos 20 "+y);
-        panelLbl.add(lblTpo7, "pos 20 "+y);        
+        panelLbl.add(lblTpo3, "pos 260 20");
+        panelLbl.add(lblTpo4, "pos 350 "+y);
+        panelLbl.add(lblTpo9, "pos 350 20");
+        panelLbl.add(lblTpo5, "pos 470 20");
+        panelLbl.add(lblTpo6, "pos 560 "+y);
+        panelLbl.add(lblTpo7, "pos 625 "+y);        
         add(panelLbl,BorderLayout.SOUTH);        
         add(info,BorderLayout.CENTER);
        }
@@ -144,6 +152,7 @@ public class BarraProgreso extends JPanel
     		lblTpo6.setVisible(false);
     		lblTpo7.setVisible(false);
     		lblTpo8.setVisible(false);
+    		lblTpo9.setVisible(false);
     		progreso.setValue(0);
     		progreso.repaint();
     		Graphics g = getGraphics();
@@ -156,7 +165,9 @@ public class BarraProgreso extends JPanel
     		lblTpo5.setVisible(false);
     		lblTpo6.setVisible(false);
     		lblTpo7.setVisible(false);
-    		lblTpo8.setVisible(false);
+    		lblTpo8.setVisible(true);
+    		lblTpo9.setVisible(false);
+    		panelLbl.add(lblTpo2, "pos 110 5");
     		progreso.setValue(20);
     		progreso.repaint();
     	}else if(paso.equalsIgnoreCase("Estilo de Vida")){
@@ -166,7 +177,8 @@ public class BarraProgreso extends JPanel
     		lblTpo5.setVisible(false);
     		lblTpo6.setVisible(false);
     		lblTpo7.setVisible(false);
-    		lblTpo8.setVisible(true);
+    		lblTpo9.setVisible(false);
+    		panelLbl.add(lblTpo2, "pos 230 5");
     		progreso.setValue(40);
     		progreso.repaint();
     	}else if(paso.equalsIgnoreCase("Intencion de Compra")){
@@ -176,6 +188,9 @@ public class BarraProgreso extends JPanel
     		lblTpo5.setVisible(false);
     		lblTpo6.setVisible(false);
     		lblTpo7.setVisible(false);
+    		lblTpo9.setVisible(true);
+    		panelLbl.add(lblTpo2, "pos 150 5");
+    		panelLbl.add(lblTpo4, "pos 350 5");
     		progreso.setValue(60);
     		progreso.repaint();
     	}else if(paso.equalsIgnoreCase("Caracteristicas de Productos")){
@@ -185,6 +200,8 @@ public class BarraProgreso extends JPanel
     		lblTpo5.setVisible(true);
     		lblTpo6.setVisible(false);
     		lblTpo7.setVisible(false);
+    		lblTpo9.setVisible(true);
+    		panelLbl.add(lblTpo4, "pos 450 5");
     		progreso.setValue(80);
     		progreso.repaint();
     	}else if(paso.equalsIgnoreCase("Resumen")){
@@ -194,6 +211,8 @@ public class BarraProgreso extends JPanel
     		lblTpo5.setVisible(true);
     		lblTpo6.setVisible(true);
     		lblTpo7.setVisible(false);
+    		lblTpo9.setVisible(true);
+    		panelLbl.add(lblTpo4, "pos 390 5");
     		progreso.setValue(90);
     		progreso.repaint();
     	}else if(paso.equalsIgnoreCase("Resultados")){
@@ -203,6 +222,7 @@ public class BarraProgreso extends JPanel
     		lblTpo5.setVisible(true);
     		lblTpo6.setVisible(true);
 	    		lblTpo7.setVisible(true);
+	    		lblTpo9.setVisible(true);
 	    		progreso.setValue(100);
 	    		progreso.repaint();
 	    	}
