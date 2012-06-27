@@ -1,15 +1,3 @@
-/** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * $Id$
- * Universidad de los Andes (Bogotá - Colombia)
- * Departamento de Ingeniería de Sistemas y Computación 
- * Licenciado bajo el esquema Academic Free License versión 2.1
- *
- * Proyecto Cupi2 (http://cupi2.uniandes.edu.co)
- * Ejercicio: n12_almacen
- * Autor: Mario Sánchez - 8/11/2005
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- */
-
 package uniandes.cupi2.almacen.cliente.interfaz;
 
 import java.awt.BorderLayout;
@@ -17,15 +5,10 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Insets;
-
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
-
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -41,8 +24,6 @@ public class BarraProgreso extends JPanel
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	private static final String SALIR = "salir";
 
     // -----------------------------------------------------------------
     // Atributos
@@ -78,6 +59,8 @@ public class BarraProgreso extends JPanel
 
 	private JLabel lblTpo9;
 
+	private JLabel lblTpo0;
+
     // -----------------------------------------------------------------
     // Constructores
     // -----------------------------------------------------------------
@@ -101,6 +84,8 @@ public class BarraProgreso extends JPanel
         prog.add(progreso);
         info.add(prog,BorderLayout.CENTER);  
         lblTpo1 = new JLabel("Tipo de Analisis");
+        lblTpo0 = new JLabel();
+        lblTpo0.setFont(new Font("Default", Font.PLAIN, 8));
         lblTpo2 = new JLabel("Informacion Mercado");
         lblTpo3 = new JLabel("Estilo de Vida");
         lblTpo3.setFont(new Font("Default", Font.PLAIN, 8));
@@ -121,6 +106,7 @@ public class BarraProgreso extends JPanel
         lblTpo7.setVisible(false);
         lblTpo8.setVisible(false);
         lblTpo9.setVisible(false);
+        lblTpo0.setVisible(false);
         int y = 5;
         panelLbl = new JPanel();
         panelLbl.setLayout(new MigLayout());
@@ -133,7 +119,8 @@ public class BarraProgreso extends JPanel
         panelLbl.add(lblTpo9, "pos 350 20");
         panelLbl.add(lblTpo5, "pos 470 20");
         panelLbl.add(lblTpo6, "pos 560 "+y);
-        panelLbl.add(lblTpo7, "pos 625 "+y);        
+        panelLbl.add(lblTpo7, "pos 625 "+y); 
+        panelLbl.add(lblTpo0, "pos 8 20");
         add(panelLbl,BorderLayout.SOUTH);        
         add(info,BorderLayout.CENTER);
        }
@@ -143,7 +130,7 @@ public class BarraProgreso extends JPanel
     public void refrescar(){
     	String paso = ventanaPrincipal.darPaso();
     	String tipo = ventanaPrincipal.darTipo();
-    	
+    	lblTpo0.setText(tipo);
     	if(paso.equalsIgnoreCase("Tipo de Analisis")){
     		lblTpo2.setVisible(false);
     		lblTpo3.setVisible(false);
@@ -157,7 +144,6 @@ public class BarraProgreso extends JPanel
     		progreso.repaint();
     		Graphics g = getGraphics();
     		g.drawLine(45,35,45,45);
-    		
     	}else if(paso.equalsIgnoreCase("Informacion Mercado")){
     		lblTpo2.setVisible(true);
     		lblTpo3.setVisible(false);
@@ -167,6 +153,7 @@ public class BarraProgreso extends JPanel
     		lblTpo7.setVisible(false);
     		lblTpo8.setVisible(true);
     		lblTpo9.setVisible(false);
+    		lblTpo0.setVisible(true);
     		panelLbl.add(lblTpo2, "pos 110 5");
     		progreso.setValue(20);
     		progreso.repaint();
@@ -221,11 +208,11 @@ public class BarraProgreso extends JPanel
     		lblTpo4.setVisible(true);
     		lblTpo5.setVisible(true);
     		lblTpo6.setVisible(true);
-	    		lblTpo7.setVisible(true);
-	    		lblTpo9.setVisible(true);
-	    		progreso.setValue(100);
-	    		progreso.repaint();
-	    	}
+	    	lblTpo7.setVisible(true);
+	    	lblTpo9.setVisible(true);
+	    	progreso.setValue(100);
+	    	progreso.repaint();	    		
+	    }
 	    		
 	    	
     }
