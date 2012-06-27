@@ -5,3 +5,6 @@ mydatam <- Mclust(mydata)
 mydata$cluster <- mydatam$classification
 mydatam
 mydata
+
+data <- split(mydata,mydata$cluster)
+data$'1' //bota la info del cluster 1
