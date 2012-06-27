@@ -42,6 +42,12 @@ public class InterfazPrograma extends JFrame
 	private String paso;
 	
 	private String rutaInfoGen;
+	
+	private String rutaEstilo;
+	
+	private String rutaIntencion;
+	
+	private String rutaCaract;
 
     // -----------------------------------------------------------------
     // Atributos de la interfaz
@@ -305,5 +311,32 @@ public class InterfazPrograma extends JFrame
 		tipo_analisis="";
 		paso="";
 		rutaInfoGen="";
+		rutaCaract="";
+		rutaEstilo="";
+		rutaIntencion="";
+	}
+
+	public String getRutaEstilo() {
+		return rutaEstilo;
+	}
+
+	public void setRutaEstilo(String rutaEstilo) {
+		this.rutaEstilo = rutaEstilo;
+	}
+
+	public String getRutaIntencion() {
+		return rutaIntencion;
+	}
+
+	public void setRutaIntencion(String rutaIntencion) {
+		this.rutaIntencion = rutaIntencion;
+	}
+
+	public String getRutaCaract() {
+		return rutaCaract;
+	}
+
+	public void setRutaCaract(String rutaCaract) {
+		this.rutaCaract = rutaCaract;
 	}
 }
