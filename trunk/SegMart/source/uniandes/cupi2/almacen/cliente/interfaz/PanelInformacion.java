@@ -18,6 +18,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -31,6 +32,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
 /**
@@ -302,12 +304,35 @@ public class PanelInformacion extends JPanel implements ActionListener
         	tp.addTab("Información Consumo", producto);
         	centro.add(tp);
         	informacion.add(centro,BorderLayout.CENTER);
+        	informacion.setPreferredSize(new Dimension(350,120));
         	add(informacion);
         	
         	
     		
         }else if(ventanaPrincipal.darPaso().equalsIgnoreCase("Resultados")){
-    		
+        	GridLayout gl = new GridLayout(0,1);
+        	gl.setVgap(2);
+        	JPanel informacion = new JPanel(gl);
+        	
+        	informacion.setBorder( new TitledBorder( "Resultados" ) );
+        	
+        	JPanel informacion1 = new JPanel(new FlowLayout());
+        	JPanel informacion2 = new JPanel(new FlowLayout());
+        	JPanel informacion3 = new JPanel(new FlowLayout());
+        	
+        	
+        	JLabel info = new JLabel("Análisis exitoso");
+        	JButton word = new JButton("Crear reporte en Word");
+        	JButton excel = new JButton("Crear reporte en Excel");
+        	
+        	informacion1.add(info);
+        	informacion2.add(word);
+        	informacion3.add(excel);
+        	informacion.setPreferredSize(new Dimension(350,120));
+        	informacion.add(informacion1);
+        	informacion.add(informacion2);
+        	informacion.add(informacion3);
+        	add(informacion);
         }
         
         
