@@ -22,12 +22,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.security.auth.callback.TextOutputCallback;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
@@ -253,10 +255,11 @@ public class PanelInformacion extends JPanel implements ActionListener
         	JPanel informacion = new JPanel();
         	informacion.setBorder( new TitledBorder( "Resumen" ) );
         	informacion.setLayout( new BorderLayout( ) );
-        	FlowLayout fl = new FlowLayout();
         	
-        	JPanel centro = new JPanel(fl);
-        	GridLayout gl = new GridLayout(2,1);
+        	
+        	JPanel centro = new JPanel();
+        	centro.setLayout(new BoxLayout(centro, BoxLayout.PAGE_AXIS));
+        	FlowLayout gl = new FlowLayout();
         	gl.setHgap(10);
         	JPanel tipo = new JPanel(gl);
         	JLabel lTipo = new JLabel("Tipo de análisis:");
@@ -268,7 +271,6 @@ public class PanelInformacion extends JPanel implements ActionListener
         	GridLayout glm = new GridLayout(2,2);
         	glm.setHgap(10);
         	JPanel mercado = new JPanel(glm);
-        	mercado.setBorder(new TitledBorder("Información Mercado"));
         	JLabel lMercado = new JLabel("Información General:");
         	JLabel rMercado = new JLabel("C:/blablalba/babfda");
         	JLabel lEstilo = new JLabel("Estilo de vida:");
@@ -277,12 +279,10 @@ public class PanelInformacion extends JPanel implements ActionListener
         	mercado.add(rMercado);
         	mercado.add(lEstilo);
         	mercado.add(rEstilo);
-        	centro.add(mercado);
         	
         	GridLayout glp = new GridLayout(2,2);
         	glm.setHgap(10);
         	JPanel producto = new JPanel(glm);
-        	mercado.setBorder(new TitledBorder("Información Consumo"));
         	JLabel lIntencion = new JLabel("Intención de compra:");
         	JLabel rIntencion = new JLabel("C:/blablalba/babfda");
         	JLabel lProducto = new JLabel("Características de productos:");
@@ -291,10 +291,14 @@ public class PanelInformacion extends JPanel implements ActionListener
         	producto.add(rIntencion);
         	producto.add(lProducto);
         	producto.add(rProducto);
-        	centro.add(producto);
-        	
+        	JTabbedPane tp = new JTabbedPane();
+        	tp.addTab("Información Mercado", mercado);
+        	tp.addTab("Información Consumo", producto);
+        	centro.add(tp);
         	informacion.add(centro,BorderLayout.CENTER);
         	add(informacion);
+        	
+        	
     		
         }else if(ventanaPrincipal.darPaso().equalsIgnoreCase("Resultados")){
     		

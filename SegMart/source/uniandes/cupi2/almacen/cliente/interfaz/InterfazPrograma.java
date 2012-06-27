@@ -116,7 +116,7 @@ public class InterfazPrograma extends JFrame
         panelBotones = new PanelBotones( this );
         
         add( panelBotones, BorderLayout.SOUTH );
-        setSize( 700, 300 );
+        setSize( 700, 300);
         setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         setTitle( "Segmentacion" );
     }
