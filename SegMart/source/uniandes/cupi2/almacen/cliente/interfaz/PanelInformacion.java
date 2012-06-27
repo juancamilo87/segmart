@@ -14,6 +14,7 @@ package uniandes.cupi2.almacen.cliente.interfaz;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
@@ -22,6 +23,12 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
+import java.nio.file.Path;
 
 import javax.security.auth.callback.TextOutputCallback;
 import javax.swing.BoxLayout;
@@ -29,6 +36,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
@@ -206,6 +214,7 @@ public class PanelInformacion extends JPanel implements ActionListener
             rutaEstilo = new JTextField();
             rutaEstilo.setEditable(false);
             rutaEstilo.setPreferredSize(new Dimension(200,25));
+            rutaEstilo.setText(ventanaPrincipal.getRutaEstilo());
             sur.setLayout(new FlowLayout());
             JButton examinar = new JButton("Examinar");
             examinar.setActionCommand("EXAMINARE");
@@ -237,6 +246,7 @@ public class PanelInformacion extends JPanel implements ActionListener
             rutaIntencion = new JTextField();
             rutaIntencion.setEditable(false);
             rutaIntencion.setPreferredSize(new Dimension(200,25));
+            rutaIntencion.setText(ventanaPrincipal.getRutaIntencion());
             sur.setLayout(new FlowLayout());
             JButton examinar = new JButton("Examinar");
             examinar.setActionCommand("EXAMINARI");
@@ -268,6 +278,7 @@ public class PanelInformacion extends JPanel implements ActionListener
             rutaCaract = new JTextField();
             rutaCaract.setEditable(false);
             rutaCaract.setPreferredSize(new Dimension(200,25));
+            rutaCaract.setText(ventanaPrincipal.getRutaCaract());
             sur.setLayout(new FlowLayout());
             JButton examinar = new JButton("Examinar");
             examinar.setActionCommand("EXAMINARC");
@@ -371,6 +382,60 @@ public class PanelInformacion extends JPanel implements ActionListener
     public void refrescar(){
     	inicializar();
     }
+    
+    public String copiarArchivo(String ruta){
+    	File fuente = new File(ruta);
+    	String nombre = fuente.getName().substring(0,fuente.getName().lastIndexOf("."));
+    	nombre = nombre+"mod";
+    	String ext = fuente.getName().substring(fuente.getName().lastIndexOf("."));
+    	int index = ruta.lastIndexOf("/");
+    	File destino = new File(ruta.substring(0, index)+"/"+nombre+ext);
+    	if(!destino.exists())
+    	{
+			try {
+				destino.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	FileChannel source = null;
+    	FileChannel destination = null;
+    	
+            try {
+				source = new FileInputStream(fuente).getChannel();
+			
+			destination = new FileOutputStream(destino).getChannel();
+			
+            destination.transferFrom(source, 0, source.size());
+            } catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            finally{
+        
+            if(source != null) {
+                try {
+					source.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            }
+            if(destination != null) {
+                try {
+					destination.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            }
+            }
+            return destino.getPath();
+    	
+    	
+    	
+    }
 
     /**
      * Este método se llama cuando se presiona uno de los botones <br>
@@ -384,15 +449,22 @@ public class PanelInformacion extends JPanel implements ActionListener
         	ventanaPrincipal.cambiarTipoAnalisis(comando);
         }
         else if (comando.equalsIgnoreCase("EXAMINAR")) {
-			JFileChooser jfc = new JFileChooser();
+			
+        	JFileChooser jfc = new JFileChooser();
 			int returnval = jfc.showOpenDialog(this);
 			if (returnval == JFileChooser.APPROVE_OPTION) {
 				File file = jfc.getSelectedFile();
+				if(file.exists()&&file.getPath()!=null){
 				ventanaPrincipal.setRutaInfoGen(file.getPath());
 				rutaInfoGen.setText(ventanaPrincipal.getRutaInfoGen());
 				// This is where a real application would open the file.
-
+				}
+				else{
+					JOptionPane.showMessageDialog(this,"Debe seleccionar un archivo", "Seleccionar Archivo", JOptionPane.INFORMATION_MESSAGE);
+					
+				}
 			}
+			
 		}
 
         else if (comando.equalsIgnoreCase("EXAMINARE")) {
@@ -400,10 +472,15 @@ public class PanelInformacion extends JPanel implements ActionListener
 			int returnval = jfc.showOpenDialog(this);
 			if (returnval == JFileChooser.APPROVE_OPTION) {
 				File file = jfc.getSelectedFile();
+				if(file.exists()){
 				ventanaPrincipal.setRutaEstilo(file.getPath());
 				rutaEstilo.setText(ventanaPrincipal.getRutaEstilo());
 				// This is where a real application would open the file.
-
+			}
+			else{
+				JOptionPane.showMessageDialog(this,"Debe seleccionar un archivo", "Seleccionar Archivo", JOptionPane.INFORMATION_MESSAGE);
+				
+			}
 			}
 		}
 
@@ -412,10 +489,15 @@ public class PanelInformacion extends JPanel implements ActionListener
 			int returnval = jfc.showOpenDialog(this);
 			if (returnval == JFileChooser.APPROVE_OPTION) {
 				File file = jfc.getSelectedFile();
+				if(file.exists()){
 				ventanaPrincipal.setRutaIntencion(file.getPath());
 				rutaIntencion.setText(ventanaPrincipal.getRutaIntencion());
 				// This is where a real application would open the file.
-
+			}
+			else{
+				JOptionPane.showMessageDialog(this,"Debe seleccionar un archivo", "Seleccionar Archivo", JOptionPane.INFORMATION_MESSAGE);
+				
+			}
 			}
 		}
 
@@ -424,12 +506,60 @@ public class PanelInformacion extends JPanel implements ActionListener
 			int returnval = jfc.showOpenDialog(this);
 			if (returnval == JFileChooser.APPROVE_OPTION) {
 				File file = jfc.getSelectedFile();
+				if(file.exists()){
 				ventanaPrincipal.setRutaCaract(file.getPath());
 				rutaCaract.setText(ventanaPrincipal.getRutaCaract());
 				// This is where a real application would open the file.
-
+			}
+			else{
+				JOptionPane.showMessageDialog(this,"Debe seleccionar un archivo", "Seleccionar Archivo", JOptionPane.INFORMATION_MESSAGE);
+				
+			}
 			}
 		}
+        else if (comando.equalsIgnoreCase("CREAR_ARCHIVO")){
+        	JOptionPane.showMessageDialog(this,"Ingrese los datos a analizar y guarde el archivo en la dirección predeterminada.","Archivo base",JOptionPane.INFORMATION_MESSAGE);
+        	if(ventanaPrincipal.darPaso().equalsIgnoreCase("Informacion Mercado")){
+        		String nuevo_archivo = copiarArchivo("docs/Base Info General.xlsx");
+        		try {  
+        		     Desktop.getDesktop().open(new File(nuevo_archivo));  
+        		} catch (IOException e) {e.printStackTrace();}
+        		
+        		ventanaPrincipal.setRutaInfoGen(nuevo_archivo);
+        		rutaInfoGen.setText(ventanaPrincipal.getRutaInfoGen());
+        		
+        	}
+        	else if(ventanaPrincipal.darPaso().equalsIgnoreCase("Estilo de Vida")){
+        		String nuevo_archivo = copiarArchivo("docs/Base Info Estilo.xlsx");
+        		try {  
+        		     Desktop.getDesktop().open(new File(nuevo_archivo));  
+        		} catch (IOException e) {e.printStackTrace();}
+        		
+        		ventanaPrincipal.setRutaEstilo(nuevo_archivo);
+        		rutaEstilo.setText(ventanaPrincipal.getRutaEstilo());
+        		
+        	}
+        	else if(ventanaPrincipal.darPaso().equalsIgnoreCase("Intencion de Compra")){
+        		String nuevo_archivo = copiarArchivo("docs/Base Info Intencion.xlsx");
+        		try {  
+        		     Desktop.getDesktop().open(new File(nuevo_archivo));  
+        		} catch (IOException e) {e.printStackTrace();}
+        		
+        		ventanaPrincipal.setRutaIntencion(nuevo_archivo);
+        		rutaIntencion.setText(ventanaPrincipal.getRutaIntencion());
+        		
+        	}
+        	else if(ventanaPrincipal.darPaso().equalsIgnoreCase("Caracteristicas de Productos")){
+        		String nuevo_archivo = copiarArchivo("docs/Base Info Caracteristicas.xlsx");
+        		try {  
+        		     Desktop.getDesktop().open(new File(nuevo_archivo));  
+        		} catch (IOException e) {e.printStackTrace();}
+        		
+        		ventanaPrincipal.setRutaCaract(nuevo_archivo);
+        		rutaCaract.setText(ventanaPrincipal.getRutaCaract());
+        		
+        	}
+        }
         
         
     }

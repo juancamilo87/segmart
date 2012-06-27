@@ -109,6 +109,10 @@ public class InterfazPrograma extends JFrame
     private void construirForma( )
     {
         // organizar el panel principal
+    	rutaInfoGen="";
+    	rutaIntencion="";
+    	rutaEstilo="";
+    	rutaCaract="";
     	BorderLayout orden = new BorderLayout();
     	orden.setHgap(10);
     	orden.setVgap(10);
@@ -150,6 +154,10 @@ public class InterfazPrograma extends JFrame
     	return paso;
     }
     
+    public Boolean verificarArchivo(String ruta){
+    	return false;
+    }
+    
     public void refrescar(String accion){
     	
     	if(accion.equalsIgnoreCase("Siguiente"))
@@ -161,25 +169,46 @@ public class InterfazPrograma extends JFrame
     			panelBotones.refrescar();
     			
     		}else if(paso.equalsIgnoreCase("Informacion Mercado")){
-    			paso = "Estilo de Vida";
-    			barraProgreso.refrescar();
-    			panelInformacion.refrescar();
-    			panelBotones.refrescar();
+    			
+    			if(rutaInfoGen.equalsIgnoreCase(""))
+    				JOptionPane.showMessageDialog(this,"Debe seleccionar un archivo.","Error",JOptionPane.ERROR_MESSAGE);
+    			else if(verificarArchivo(rutaInfoGen)){
+    				paso = "Estilo de Vida";
+    				barraProgreso.refrescar();
+    				panelInformacion.refrescar();
+    				panelBotones.refrescar();}
+    			else
+    				JOptionPane.showMessageDialog(this,"El archivo ingresado no tiene el formato correcto.","Error",JOptionPane.ERROR_MESSAGE);
     		}else if(paso.equalsIgnoreCase("Estilo de Vida")){
+    			if(rutaEstilo.equalsIgnoreCase(""))
+    				JOptionPane.showMessageDialog(this,"Debe seleccionar un archivo.","Error",JOptionPane.ERROR_MESSAGE);
+    			else if(verificarArchivo(rutaEstilo)){
     			paso = "Intencion de Compra";
     			barraProgreso.refrescar();
     			panelInformacion.refrescar();
     			panelBotones.refrescar();
+    			}else
+    				JOptionPane.showMessageDialog(this,"El archivo ingresado no tiene el formato correcto.","Error",JOptionPane.ERROR_MESSAGE);
     		}else if(paso.equalsIgnoreCase("Intencion de Compra")){
+    			if(rutaIntencion.equalsIgnoreCase(""))
+    				JOptionPane.showMessageDialog(this,"Debe seleccionar un archivo.","Error",JOptionPane.ERROR_MESSAGE);
+    			else if(verificarArchivo(rutaIntencion)){
     			paso = "Caracteristicas de Productos";
     			barraProgreso.refrescar();
     			panelInformacion.refrescar();
     			panelBotones.refrescar();
+    			}else
+    				JOptionPane.showMessageDialog(this,"El archivo ingresado no tiene el formato correcto.","Error",JOptionPane.ERROR_MESSAGE);
     		}else if(paso.equalsIgnoreCase("Caracteristicas de Productos")){
+    			if(rutaCaract.equalsIgnoreCase(""))
+    				JOptionPane.showMessageDialog(this,"Debe seleccionar un archivo.","Error",JOptionPane.ERROR_MESSAGE);
+    			else if(verificarArchivo(rutaCaract)){
     			paso = "Resumen";
     			barraProgreso.refrescar();
     			panelInformacion.refrescar();
     			panelBotones.refrescar();
+    			}else
+    				JOptionPane.showMessageDialog(this,"El archivo ingresado no tiene el formato correcto.","Error",JOptionPane.ERROR_MESSAGE);
     		}else if(paso.equalsIgnoreCase("Resumen")){
     			paso = "Resultados";
     			barraProgreso.refrescar();
