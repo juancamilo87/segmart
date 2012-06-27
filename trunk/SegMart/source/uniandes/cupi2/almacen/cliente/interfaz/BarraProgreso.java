@@ -61,7 +61,19 @@ public class BarraProgreso extends JPanel
     
     private JPanel info;
     
+    private JLabel lblTpo1;
+    
+    private JLabel lblTpo2;
 
+    private JLabel lblTpo3;
+    
+    private JLabel lblTpo4;
+    
+    private JLabel lblTpo5;
+    
+    private JLabel lblTpo6;
+    
+    private JLabel lblTpo7;
     // -----------------------------------------------------------------
     // Constructores
     // -----------------------------------------------------------------
@@ -85,7 +97,23 @@ public class BarraProgreso extends JPanel
         prog.add(progreso);
         info.add(prog,BorderLayout.CENTER);
         info.add(new JLabel("\n"),BorderLayout.SOUTH);
-        add(new JLabel("Tipo de análisis"),BorderLayout.SOUTH);
+        lblTpo1 = new JLabel("Tipo de Analisis");
+        lblTpo2 = new JLabel("Informacion Mercado");
+        lblTpo3 = new JLabel("Estilo de Vida");
+        lblTpo4 = new JLabel("Intencion de Compra");
+        lblTpo5 = new JLabel("Caracteristicas de Productos");
+        lblTpo6 = new JLabel("Resumen");
+        lblTpo7 = new JLabel("Resultados");
+        JPanel panelLbl = new JPanel();
+        panelLbl.setLayout(new FlowLayout());
+        panelLbl.add(lblTpo1);
+        panelLbl.add(lblTpo2);
+        panelLbl.add(lblTpo3);
+        panelLbl.add(lblTpo4);
+        panelLbl.add(lblTpo5);
+        panelLbl.add(lblTpo6);
+        panelLbl.add(lblTpo7);
+        add(panelLbl,BorderLayout.SOUTH);
         
         add(info,BorderLayout.CENTER);
         
@@ -99,28 +127,72 @@ public class BarraProgreso extends JPanel
     
     public void refrescar(){
     	String paso = ventanaPrincipal.darPaso();
+    	String tipo = ventanaPrincipal.darTipo();
+    	
     	if(paso.equalsIgnoreCase("Tipo de Analisis")){
+    		lblTpo2.setVisible(false);
+    		lblTpo3.setVisible(false);
+    		lblTpo4.setVisible(false);
+    		lblTpo5.setVisible(false);
+    		lblTpo6.setVisible(false);
+    		lblTpo7.setVisible(false);
     		progreso.setValue(0);
     		progreso.repaint();
     		Graphics g = getGraphics();
     		g.drawLine(45,35,45,45);
     		
     	}else if(paso.equalsIgnoreCase("Informacion Mercado")){
+    		lblTpo2.setVisible(true);
+    		lblTpo3.setVisible(false);
+    		lblTpo4.setVisible(false);
+    		lblTpo5.setVisible(false);
+    		lblTpo6.setVisible(false);
+    		lblTpo7.setVisible(false);
     		progreso.setValue(20);
     		progreso.repaint();
     	}else if(paso.equalsIgnoreCase("Estilo de Vida")){
+    		lblTpo2.setVisible(true);
+    		lblTpo3.setVisible(true);
+    		lblTpo4.setVisible(false);
+    		lblTpo5.setVisible(false);
+    		lblTpo6.setVisible(false);
+    		lblTpo7.setVisible(false);
     		progreso.setValue(40);
     		progreso.repaint();
     	}else if(paso.equalsIgnoreCase("Intencion de Compra")){
+    		lblTpo2.setVisible(true);
+    		lblTpo3.setVisible(true);
+    		lblTpo4.setVisible(true);
+    		lblTpo5.setVisible(false);
+    		lblTpo6.setVisible(false);
+    		lblTpo7.setVisible(false);
     		progreso.setValue(60);
     		progreso.repaint();
     	}else if(paso.equalsIgnoreCase("Caracteristicas de Productos")){
+    		lblTpo2.setVisible(true);
+    		lblTpo3.setVisible(true);
+    		lblTpo4.setVisible(true);
+    		lblTpo5.setVisible(true);
+    		lblTpo6.setVisible(false);
+    		lblTpo7.setVisible(false);
     		progreso.setValue(80);
     		progreso.repaint();
     	}else if(paso.equalsIgnoreCase("Resumen")){
+    		lblTpo2.setVisible(true);
+    		lblTpo3.setVisible(true);
+    		lblTpo4.setVisible(true);
+    		lblTpo5.setVisible(true);
+    		lblTpo6.setVisible(true);
+    		lblTpo7.setVisible(false);
     		progreso.setValue(90);
     		progreso.repaint();
     	}else if(paso.equalsIgnoreCase("Resultados")){
+    		lblTpo2.setVisible(true);
+    		lblTpo3.setVisible(true);
+    		lblTpo4.setVisible(true);
+    		lblTpo5.setVisible(true);
+    		lblTpo6.setVisible(true);
+    		lblTpo7.setVisible(true);
     		progreso.setValue(100);
     		progreso.repaint();
     	}
