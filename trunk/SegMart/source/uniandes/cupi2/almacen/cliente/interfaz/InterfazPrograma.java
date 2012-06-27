@@ -40,6 +40,8 @@ public class InterfazPrograma extends JFrame
 	private String tipo_analisis;
 	
 	private String paso;
+	
+	private String rutaInfoGen;
 
     // -----------------------------------------------------------------
     // Atributos de la interfaz
@@ -150,33 +152,33 @@ public class InterfazPrograma extends JFrame
     			paso = "Informacion Mercado";
     			barraProgreso.refrescar();
     			panelInformacion.refrescar();
-    			panelBotones.refrescar(paso,tipo_analisis);
+    			panelBotones.refrescar();
     			
     		}else if(paso.equalsIgnoreCase("Informacion Mercado")){
     			paso = "Estilo de Vida";
     			barraProgreso.refrescar();
     			panelInformacion.refrescar();
-    			panelBotones.refrescar(paso,tipo_analisis);
+    			panelBotones.refrescar();
     		}else if(paso.equalsIgnoreCase("Estilo de Vida")){
     			paso = "Intencion de Compra";
     			barraProgreso.refrescar();
     			panelInformacion.refrescar();
-    			panelBotones.refrescar(paso,tipo_analisis);
+    			panelBotones.refrescar();
     		}else if(paso.equalsIgnoreCase("Intencion de Compra")){
     			paso = "Caracteristicas de Productos";
     			barraProgreso.refrescar();
     			panelInformacion.refrescar();
-    			panelBotones.refrescar(paso,tipo_analisis);
+    			panelBotones.refrescar();
     		}else if(paso.equalsIgnoreCase("Caracteristicas de Productos")){
     			paso = "Resumen";
     			barraProgreso.refrescar();
     			panelInformacion.refrescar();
-    			panelBotones.refrescar(paso,tipo_analisis);
+    			panelBotones.refrescar();
     		}else if(paso.equalsIgnoreCase("Resumen")){
     			paso = "Resultados";
     			barraProgreso.refrescar();
     			panelInformacion.refrescar();
-    			panelBotones.refrescar(paso,tipo_analisis);
+    			panelBotones.refrescar();
     		}
     		
     	}
@@ -187,33 +189,42 @@ public class InterfazPrograma extends JFrame
     			paso = "Tipo de Analisis";
     			barraProgreso.refrescar();
     			panelInformacion.refrescar();
-    			panelBotones.refrescar(paso,tipo_analisis);
+    			panelBotones.refrescar();
     		}else if(paso.equalsIgnoreCase("Estilo de Vida")){
     			paso = "Informacion Mercado";
     			barraProgreso.refrescar();
     			panelInformacion.refrescar();
-    			panelBotones.refrescar(paso,tipo_analisis);
+    			panelBotones.refrescar();
     		}else if(paso.equalsIgnoreCase("Intencion de Compra")){
     			paso = "Estilo de Vida";
     			barraProgreso.refrescar();
     			panelInformacion.refrescar();
-    			panelBotones.refrescar(paso,tipo_analisis);
+    			panelBotones.refrescar();
     		}else if(paso.equalsIgnoreCase("Caracteristicas de Productos")){
     			paso = "Intencion de Compra";
     			barraProgreso.refrescar();
     			panelInformacion.refrescar();
-    			panelBotones.refrescar(paso,tipo_analisis);
+    			panelBotones.refrescar();
     		}else if(paso.equalsIgnoreCase("Resumen")){
     			paso = "Caracteristicas de Productos";
     			barraProgreso.refrescar();
     			panelInformacion.refrescar();
-    			panelBotones.refrescar(paso,tipo_analisis);
+    			panelBotones.refrescar();
     		}else if(paso.equalsIgnoreCase("Resultados")){
     			paso = "Resumen";
     			barraProgreso.refrescar();
     			panelInformacion.refrescar();
-    			panelBotones.refrescar(paso,tipo_analisis);
+    			panelBotones.refrescar();
     		}
+    		
+    	}
+    	else if(accion.equalsIgnoreCase("Reiniciar")){
+    		limpiar();
+    		paso = "Tipo de Analisis";
+    		barraProgreso.refrescar();
+    		panelInformacion.refrescar();
+    		panelBotones.refrescar();
+    		panelBotones.cambiarListo2();
     		
     	}
     }
@@ -281,4 +292,18 @@ public class InterfazPrograma extends JFrame
 //            System.out.println( e.getMessage( ) );
 //        }
     }
+
+	public String getRutaInfoGen() {
+		return rutaInfoGen;
+	}
+
+	public void setRutaInfoGen(String rutaInfoGen) {
+		this.rutaInfoGen = rutaInfoGen;
+	}
+	
+	public void limpiar(){
+		tipo_analisis="";
+		paso="";
+		rutaInfoGen="";
+	}
 }
