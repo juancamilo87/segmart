@@ -134,7 +134,10 @@ public class PanelBotones extends JPanel implements ActionListener
     public void refrescar(String paso, String tipo_analisis){
     	if(!ventanaPrincipal.darPaso().equalsIgnoreCase("Tipo de Analisis")){
     		anterior.setVisible(true);
-    		siguiente.setText("Siguiente");
+    		if(ventanaPrincipal.darPaso().equalsIgnoreCase("Resumen"))
+    				siguiente.setText("Crear");
+    		else
+    			siguiente.setText("Siguiente");
     	}
     	else{
     		anterior.setVisible(false);
