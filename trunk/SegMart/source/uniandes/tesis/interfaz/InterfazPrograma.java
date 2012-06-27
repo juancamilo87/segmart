@@ -11,7 +11,7 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-package uniandes.cupi2.almacen.cliente.interfaz;
+package uniandes.tesis.interfaz;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

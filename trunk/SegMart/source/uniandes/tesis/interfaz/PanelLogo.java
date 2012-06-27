@@ -10,7 +10,7 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-package uniandes.cupi2.almacen.cliente.interfaz;
+package uniandes.tesis.interfaz;
 
 import java.awt.Image;
 import java.awt.event.ActionEvent;
