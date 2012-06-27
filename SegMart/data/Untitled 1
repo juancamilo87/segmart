@@ -1,0 +1,7 @@
+R para crear clusters a partir de intencion de compra o caracteristicas de productos
+
+mydata <- read.csv(file path con / no \)
+mydatam <- Mclust(mydata)
+mydata$cluster <- mydatam$classification
+mydatam
+mydata
