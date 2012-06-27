@@ -10,7 +10,7 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-package uniandes.cupi2.almacen.cliente.interfaz;
+package uniandes.tesis.interfaz;
 
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
