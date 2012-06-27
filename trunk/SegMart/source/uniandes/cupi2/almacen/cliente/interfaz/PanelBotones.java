@@ -135,14 +135,19 @@ public class PanelBotones extends JPanel implements ActionListener
     }
     
     public void refrescar(String paso, String tipo_analisis){
-    	if(!ventanaPrincipal.darPaso().equalsIgnoreCase("Tipo de Analisis")){
+    	if(!ventanaPrincipal.darPaso().equalsIgnoreCase("Tipo de Analisis")&&!ventanaPrincipal.darPaso().equalsIgnoreCase("Resultados")){
     		anterior.setVisible(true);
     		if(ventanaPrincipal.darPaso().equalsIgnoreCase("Resumen"))
     				siguiente.setText("Crear");
     		else
     			siguiente.setText("Siguiente");
     	}
-    	else{
+    	else if(ventanaPrincipal.darPaso().equalsIgnoreCase("Resultados")){
+    		anterior.setVisible(false);
+    		siguiente.setText("Reiniciar Análisis");
+    	}
+    	else
+    	{
     		anterior.setVisible(false);
     		siguiente.setText("Continuar");
     	}
