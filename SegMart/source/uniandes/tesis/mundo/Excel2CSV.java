@@ -26,13 +26,13 @@ public class Excel2CSV {
 	/**
 	 * @throws Exception
 	 */
-	public static void echoAsCSV() throws Exception {
+	public static void echoAsCSV(String path) throws Exception {
 		Row row = null;
 		double maxRows = 0;
 		double maxCols = 0;
 		String stringCellV = "";
 		InputStream inp = null;
-		File file = new File("docs/Base Info General.csv");
+		File file = new File(path);
 		try {
 			if(!file.exists())
 			{
@@ -120,16 +120,16 @@ public class Excel2CSV {
 		}
 	}
 
-	public static void main(String[] args) {
-		try 
-		{
-			echoAsCSV();
-		} 
-		catch (Exception e) 
-		{
-			System.out.println(e.getMessage());
-		}
-		
-	}
+//	public static void main(String[] args) {
+//		try 
+//		{
+//			echoAsCSV();
+//		} 
+//		catch (Exception e) 
+//		{
+//			System.out.println(e.getMessage());
+//		}
+//		
+//	}
 
 }
