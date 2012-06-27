@@ -81,7 +81,11 @@ public class PanelInformacion extends JPanel implements ActionListener
     
     private JTextField rutaInfoGen;
     
-  
+    private JTextField rutaEstilo;
+    
+    private JTextField rutaIntencion;
+    
+    private JTextField rutaCaract;
 
     // -----------------------------------------------------------------
     // Constructores
@@ -134,6 +138,10 @@ public class PanelInformacion extends JPanel implements ActionListener
         creacion.setActionCommand("CREACION");
         creacion.addActionListener(this);
         ButtonGroup opciones = new ButtonGroup();
+        if(ventanaPrincipal.darTipo().equalsIgnoreCase("BUSQUEDA"))
+        	busqueda.setSelected(true);
+        else if(ventanaPrincipal.darTipo().equalsIgnoreCase("CREACION"))
+        	creacion.setSelected(true);
         opciones.add(busqueda);
         opciones.add(creacion);
         JPanel radioGroup = new JPanel(new GridLayout(0,1));
@@ -195,12 +203,14 @@ public class PanelInformacion extends JPanel implements ActionListener
             boton.add(crearArchivo);
             informacion.add(boton, BorderLayout.CENTER);
             JPanel sur = new JPanel();
-            JTextField texto_mercado = new JTextField();
-            texto_mercado.setEditable(false);
-            texto_mercado.setPreferredSize(new Dimension(200,25));
+            rutaEstilo = new JTextField();
+            rutaEstilo.setEditable(false);
+            rutaEstilo.setPreferredSize(new Dimension(200,25));
             sur.setLayout(new FlowLayout());
             JButton examinar = new JButton("Examinar");
-            sur.add(texto_mercado);
+            examinar.setActionCommand("EXAMINARE");
+            examinar.addActionListener(this);
+            sur.add(rutaEstilo);
             sur.add(examinar);
             informacion.add(sur,BorderLayout.SOUTH);
             informacion.setPreferredSize(new Dimension(350,120));
@@ -224,12 +234,14 @@ public class PanelInformacion extends JPanel implements ActionListener
             boton.add(crearArchivo);
             informacion.add(boton, BorderLayout.CENTER);
             JPanel sur = new JPanel();
-            JTextField texto_mercado = new JTextField();
-            texto_mercado.setEditable(false);
-            texto_mercado.setPreferredSize(new Dimension(200,25));
+            rutaIntencion = new JTextField();
+            rutaIntencion.setEditable(false);
+            rutaIntencion.setPreferredSize(new Dimension(200,25));
             sur.setLayout(new FlowLayout());
             JButton examinar = new JButton("Examinar");
-            sur.add(texto_mercado);
+            examinar.setActionCommand("EXAMINARI");
+            examinar.addActionListener(this);
+            sur.add(rutaIntencion);
             sur.add(examinar);
             informacion.add(sur,BorderLayout.SOUTH);
             informacion.setPreferredSize(new Dimension(350,120));
@@ -253,12 +265,14 @@ public class PanelInformacion extends JPanel implements ActionListener
             boton.add(crearArchivo);
             informacion.add(boton, BorderLayout.CENTER);
             JPanel sur = new JPanel();
-            JTextField texto_mercado = new JTextField();
-            texto_mercado.setEditable(false);
-            texto_mercado.setPreferredSize(new Dimension(200,25));
+            rutaCaract = new JTextField();
+            rutaCaract.setEditable(false);
+            rutaCaract.setPreferredSize(new Dimension(200,25));
             sur.setLayout(new FlowLayout());
             JButton examinar = new JButton("Examinar");
-            sur.add(texto_mercado);
+            examinar.setActionCommand("EXAMINARC");
+            examinar.addActionListener(this);
+            sur.add(rutaCaract);
             sur.add(examinar);
             informacion.add(sur,BorderLayout.SOUTH);
             informacion.setPreferredSize(new Dimension(350,120));
@@ -293,8 +307,9 @@ public class PanelInformacion extends JPanel implements ActionListener
         	JLabel lMercado = new JLabel("Información General:");
         	JLabel rMercado = new JLabel(ventanaPrincipal.getRutaInfoGen());
         	JLabel lEstilo = new JLabel("Estilo de vida:");
-        	JLabel rEstilo = new JLabel("C:/blab324ba/babfda");
+        	JLabel rEstilo = new JLabel(ventanaPrincipal.getRutaEstilo());
         	rMercado.setToolTipText(ventanaPrincipal.getRutaInfoGen());
+        	rEstilo.setToolTipText(ventanaPrincipal.getRutaEstilo());
         	mercado.add(lMercado);
         	mercado.add(rMercado);
         	mercado.add(lEstilo);
@@ -304,9 +319,11 @@ public class PanelInformacion extends JPanel implements ActionListener
         	glm.setHgap(10);
         	JPanel producto = new JPanel(glm);
         	JLabel lIntencion = new JLabel("Intención de compra:");
-        	JLabel rIntencion = new JLabel("C:/blablalba/babfda");
+        	JLabel rIntencion = new JLabel(ventanaPrincipal.getRutaIntencion());
         	JLabel lProducto = new JLabel("Características de productos:");
-        	JLabel rProducto = new JLabel("C:/blab324ba/babfda");
+        	JLabel rProducto = new JLabel(ventanaPrincipal.getRutaCaract());
+        	rIntencion.setToolTipText(ventanaPrincipal.getRutaIntencion());
+        	rProducto.setToolTipText(ventanaPrincipal.getRutaCaract());
         	producto.add(lIntencion);
         	producto.add(rIntencion);
         	producto.add(lProducto);
@@ -366,19 +383,53 @@ public class PanelInformacion extends JPanel implements ActionListener
         if(comando.equalsIgnoreCase("BUSQUEDA")||comando.equalsIgnoreCase("CREACION")){
         	ventanaPrincipal.cambiarTipoAnalisis(comando);
         }
-        else if(comando.equalsIgnoreCase("EXAMINAR")){
-        	JFileChooser jfc = new JFileChooser();
-            int returnval = jfc.showOpenDialog(this);
-            if(returnval == JFileChooser.APPROVE_OPTION){
-            	File file = jfc.getSelectedFile();
-            	ventanaPrincipal.setRutaInfoGen(file.getPath());
-            	rutaInfoGen.setText(ventanaPrincipal.getRutaInfoGen());
-                //This is where a real application would open the file.
-                
-            } else {
-                
-            }
-        }
+        else if (comando.equalsIgnoreCase("EXAMINAR")) {
+			JFileChooser jfc = new JFileChooser();
+			int returnval = jfc.showOpenDialog(this);
+			if (returnval == JFileChooser.APPROVE_OPTION) {
+				File file = jfc.getSelectedFile();
+				ventanaPrincipal.setRutaInfoGen(file.getPath());
+				rutaInfoGen.setText(ventanaPrincipal.getRutaInfoGen());
+				// This is where a real application would open the file.
+
+			}
+		}
+
+        else if (comando.equalsIgnoreCase("EXAMINARE")) {
+			JFileChooser jfc = new JFileChooser();
+			int returnval = jfc.showOpenDialog(this);
+			if (returnval == JFileChooser.APPROVE_OPTION) {
+				File file = jfc.getSelectedFile();
+				ventanaPrincipal.setRutaEstilo(file.getPath());
+				rutaEstilo.setText(ventanaPrincipal.getRutaEstilo());
+				// This is where a real application would open the file.
+
+			}
+		}
+
+        else if (comando.equalsIgnoreCase("EXAMINARI")) {
+			JFileChooser jfc = new JFileChooser();
+			int returnval = jfc.showOpenDialog(this);
+			if (returnval == JFileChooser.APPROVE_OPTION) {
+				File file = jfc.getSelectedFile();
+				ventanaPrincipal.setRutaIntencion(file.getPath());
+				rutaIntencion.setText(ventanaPrincipal.getRutaIntencion());
+				// This is where a real application would open the file.
+
+			}
+		}
+
+        else if (comando.equalsIgnoreCase("EXAMINARC")) {
+			JFileChooser jfc = new JFileChooser();
+			int returnval = jfc.showOpenDialog(this);
+			if (returnval == JFileChooser.APPROVE_OPTION) {
+				File file = jfc.getSelectedFile();
+				ventanaPrincipal.setRutaCaract(file.getPath());
+				rutaCaract.setText(ventanaPrincipal.getRutaCaract());
+				// This is where a real application would open the file.
+
+			}
+		}
         
         
     }
