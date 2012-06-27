@@ -107,7 +107,7 @@ public class PanelInformacion extends JPanel implements ActionListener
     // -----------------------------------------------------------------
 
     /**
-     * Inicializa los componentes del panel <br>
+     * Inicializa y refresca todo lo que hace el programa componentes del panel <br>
      * <b>post: </b> Se inicializaron y se ubicaron los componentes del panel <br>
      */
     private void inicializar( )
