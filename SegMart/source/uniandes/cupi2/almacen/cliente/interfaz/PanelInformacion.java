@@ -21,11 +21,13 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.security.auth.callback.TextOutputCallback;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -76,6 +78,8 @@ public class PanelInformacion extends JPanel implements ActionListener
      * Es el botón 2
      */
     private JButton botonOpcion2;
+    
+    private JTextField rutaInfoGen;
     
   
 
@@ -156,12 +160,19 @@ public class PanelInformacion extends JPanel implements ActionListener
             boton.add(crearArchivo);
             informacion.add(boton, BorderLayout.CENTER);
             JPanel sur = new JPanel();
-            JTextField texto_mercado = new JTextField();
-            texto_mercado.setEditable(false);
-            texto_mercado.setPreferredSize(new Dimension(200,25));
+            rutaInfoGen = new JTextField();
+            rutaInfoGen.setEditable(false);
+            rutaInfoGen.setPreferredSize(new Dimension(200,25));
+            rutaInfoGen.setText(ventanaPrincipal.getRutaInfoGen());
             sur.setLayout(new FlowLayout());
             JButton examinar = new JButton("Examinar");
-            sur.add(texto_mercado);
+            examinar.setActionCommand("EXAMINAR");
+            examinar.addActionListener(this);
+            
+            
+            
+            
+            sur.add(rutaInfoGen);
             sur.add(examinar);
             informacion.add(sur,BorderLayout.SOUTH);
             informacion.setPreferredSize(new Dimension(350,120));
@@ -280,15 +291,16 @@ public class PanelInformacion extends JPanel implements ActionListener
         	glm.setHgap(10);
         	JPanel mercado = new JPanel(glm);
         	JLabel lMercado = new JLabel("Información General:");
-        	JLabel rMercado = new JLabel("C:/blablalba/babfda");
+        	JLabel rMercado = new JLabel(ventanaPrincipal.getRutaInfoGen());
         	JLabel lEstilo = new JLabel("Estilo de vida:");
         	JLabel rEstilo = new JLabel("C:/blab324ba/babfda");
+        	rMercado.setToolTipText(ventanaPrincipal.getRutaInfoGen());
         	mercado.add(lMercado);
         	mercado.add(rMercado);
         	mercado.add(lEstilo);
         	mercado.add(rEstilo);
         	
-        	GridLayout glp = new GridLayout(2,2);
+        	
         	glm.setHgap(10);
         	JPanel producto = new JPanel(glm);
         	JLabel lIntencion = new JLabel("Intención de compra:");
@@ -353,6 +365,19 @@ public class PanelInformacion extends JPanel implements ActionListener
         String comando = event.getActionCommand( );
         if(comando.equalsIgnoreCase("BUSQUEDA")||comando.equalsIgnoreCase("CREACION")){
         	ventanaPrincipal.cambiarTipoAnalisis(comando);
+        }
+        else if(comando.equalsIgnoreCase("EXAMINAR")){
+        	JFileChooser jfc = new JFileChooser();
+            int returnval = jfc.showOpenDialog(this);
+            if(returnval == JFileChooser.APPROVE_OPTION){
+            	File file = jfc.getSelectedFile();
+            	ventanaPrincipal.setRutaInfoGen(file.getPath());
+            	rutaInfoGen.setText(ventanaPrincipal.getRutaInfoGen());
+                //This is where a real application would open the file.
+                
+            } else {
+                
+            }
         }
         
         

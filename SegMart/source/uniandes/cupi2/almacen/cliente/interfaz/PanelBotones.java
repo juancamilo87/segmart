@@ -134,22 +134,25 @@ public class PanelBotones extends JPanel implements ActionListener
         txtCodigo.setText( "" );
     }
     
-    public void refrescar(String paso, String tipo_analisis){
+    public void refrescar(){
     	if(!ventanaPrincipal.darPaso().equalsIgnoreCase("Tipo de Analisis")&&!ventanaPrincipal.darPaso().equalsIgnoreCase("Resultados")){
     		anterior.setVisible(true);
     		if(ventanaPrincipal.darPaso().equalsIgnoreCase("Resumen"))
     				siguiente.setText("Crear");
     		else
     			siguiente.setText("Siguiente");
+    		siguiente.setActionCommand("SEGUIR");
     	}
     	else if(ventanaPrincipal.darPaso().equalsIgnoreCase("Resultados")){
     		anterior.setVisible(false);
     		siguiente.setText("Reiniciar Análisis");
+    		siguiente.setActionCommand("Reiniciar");
     	}
     	else
     	{
     		anterior.setVisible(false);
     		siguiente.setText("Continuar");
+    		siguiente.setActionCommand("SEGUIR");
     	}
     		
     	
@@ -157,6 +160,9 @@ public class PanelBotones extends JPanel implements ActionListener
     
     public void cambiarListo(){
     	listo = true;
+    }
+    public void cambiarListo2(){
+    	listo = false;
     }
 
     /**
@@ -173,5 +179,7 @@ public class PanelBotones extends JPanel implements ActionListener
         		JOptionPane.showMessageDialog(this,"Seleccione un tipo de análisis","Información Incompleta", JOptionPane.INFORMATION_MESSAGE);
         else if(comando.equalsIgnoreCase("REGRESAR"))
         	ventanaPrincipal.refrescar("Anterior");
+        else if(comando.equalsIgnoreCase("Reiniciar"))
+        	ventanaPrincipal.refrescar("Reiniciar");
     }
 }
