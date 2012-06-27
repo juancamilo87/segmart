@@ -13,28 +13,20 @@
 package uniandes.cupi2.almacen.cliente.interfaz;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.Shape;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.image.ImageObserver;
-import java.text.AttributedCharacterIterator;
+import java.awt.Insets;
 
+import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
+
+import net.miginfocom.swing.MigLayout;
 
 /**
  * Esta clase representa el menú de la aplicación del punto de venta
@@ -45,7 +37,12 @@ public class BarraProgreso extends JPanel
     // Constantes
     // -----------------------------------------------------------------
 
-    private static final String SALIR = "salir";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private static final String SALIR = "salir";
 
     // -----------------------------------------------------------------
     // Atributos
@@ -61,6 +58,8 @@ public class BarraProgreso extends JPanel
     
     private JPanel info;
     
+    private JPanel panelLbl;
+    
     private JLabel lblTpo1;
     
     private JLabel lblTpo2;
@@ -74,6 +73,9 @@ public class BarraProgreso extends JPanel
     private JLabel lblTpo6;
     
     private JLabel lblTpo7;
+
+	private JLabel lblTpo8;
+
     // -----------------------------------------------------------------
     // Constructores
     // -----------------------------------------------------------------
@@ -95,8 +97,7 @@ public class BarraProgreso extends JPanel
         info = new JPanel(new BorderLayout());
         JPanel prog = new JPanel(new FlowLayout());
         prog.add(progreso);
-        info.add(prog,BorderLayout.CENTER);
-        info.add(new JLabel("\n"),BorderLayout.SOUTH);
+        info.add(prog,BorderLayout.CENTER);  
         lblTpo1 = new JLabel("Tipo de Analisis");
         lblTpo2 = new JLabel("Informacion Mercado");
         lblTpo3 = new JLabel("Estilo de Vida");
@@ -104,24 +105,30 @@ public class BarraProgreso extends JPanel
         lblTpo5 = new JLabel("Caracteristicas de Productos");
         lblTpo6 = new JLabel("Resumen");
         lblTpo7 = new JLabel("Resultados");
-        JPanel panelLbl = new JPanel();
-        panelLbl.setLayout(new FlowLayout());
-        panelLbl.add(lblTpo1);
-        panelLbl.add(lblTpo2);
-        panelLbl.add(lblTpo3);
-        panelLbl.add(lblTpo4);
-        panelLbl.add(lblTpo5);
-        panelLbl.add(lblTpo6);
-        panelLbl.add(lblTpo7);
-        add(panelLbl,BorderLayout.SOUTH);
-        
+        lblTpo8 = new JLabel("Informaci'on General");
+        lblTpo8.setFont(new Font("Default", Font.PLAIN, 8));
+        lblTpo2.setVisible(false);
+        lblTpo3.setVisible(false);
+        lblTpo4.setVisible(false);
+        lblTpo5.setVisible(false);
+        lblTpo6.setVisible(false);
+        lblTpo7.setVisible(false);
+        lblTpo8.setVisible(false);
+        int y = 5;
+        panelLbl = new JPanel();
+        panelLbl.setLayout(new MigLayout());
+        panelLbl.add(lblTpo1, "pos 8 "+y);
+        panelLbl.add(lblTpo2, "pos 110 "+y);
+        panelLbl.add(lblTpo8, "pos 110 20");
+        panelLbl.add(lblTpo2, "pos 110 "+y);
+        panelLbl.add(lblTpo3, "pos 20 "+y);
+        panelLbl.add(lblTpo4, "pos 20 "+y);
+        panelLbl.add(lblTpo5, "pos 20 "+y);
+        panelLbl.add(lblTpo6, "pos 20 "+y);
+        panelLbl.add(lblTpo7, "pos 20 "+y);        
+        add(panelLbl,BorderLayout.SOUTH);        
         add(info,BorderLayout.CENTER);
-        
-        
-        
-        
-
-        }
+       }
     
    
     
@@ -136,6 +143,7 @@ public class BarraProgreso extends JPanel
     		lblTpo5.setVisible(false);
     		lblTpo6.setVisible(false);
     		lblTpo7.setVisible(false);
+    		lblTpo8.setVisible(false);
     		progreso.setValue(0);
     		progreso.repaint();
     		Graphics g = getGraphics();
@@ -148,6 +156,7 @@ public class BarraProgreso extends JPanel
     		lblTpo5.setVisible(false);
     		lblTpo6.setVisible(false);
     		lblTpo7.setVisible(false);
+    		lblTpo8.setVisible(false);
     		progreso.setValue(20);
     		progreso.repaint();
     	}else if(paso.equalsIgnoreCase("Estilo de Vida")){
@@ -157,6 +166,7 @@ public class BarraProgreso extends JPanel
     		lblTpo5.setVisible(false);
     		lblTpo6.setVisible(false);
     		lblTpo7.setVisible(false);
+    		lblTpo8.setVisible(true);
     		progreso.setValue(40);
     		progreso.repaint();
     	}else if(paso.equalsIgnoreCase("Intencion de Compra")){
@@ -192,12 +202,12 @@ public class BarraProgreso extends JPanel
     		lblTpo4.setVisible(true);
     		lblTpo5.setVisible(true);
     		lblTpo6.setVisible(true);
-    		lblTpo7.setVisible(true);
-    		progreso.setValue(100);
-    		progreso.repaint();
-    	}
-    		
-    	
+	    		lblTpo7.setVisible(true);
+	    		progreso.setValue(100);
+	    		progreso.repaint();
+	    	}
+	    		
+	    	
     }
 
     // -----------------------------------------------------------------
