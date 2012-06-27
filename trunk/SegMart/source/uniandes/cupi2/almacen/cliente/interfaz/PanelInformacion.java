@@ -271,6 +271,7 @@ public class PanelInformacion extends JPanel implements ActionListener
         		rTipo = new JLabel("Creación Producto");
         	tipo.add(lTipo);
         	tipo.add(rTipo);
+        	
         	centro.add(tipo);
         	
         	GridLayout glm = new GridLayout(2,2);
