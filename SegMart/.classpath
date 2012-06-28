@@ -5,6 +5,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/miglayout-4.0.jar"/>
 	<classpathentry kind="lib" path="lib/poi-3.8-20120326.jar"/>
-	<classpathentry kind="lib" path="lib/RCaller-2.0.7.jar"/>
+	<classpathentry kind="lib" path="lib/RserveEngine.jar"/>
+	<classpathentry kind="lib" path="lib/REngine.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
