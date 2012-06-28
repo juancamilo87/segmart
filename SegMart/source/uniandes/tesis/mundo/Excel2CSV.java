@@ -23,11 +23,17 @@ import org.apache.poi.ss.usermodel.Workbook;
  * 
  */
 public class Excel2CSV {
+	
+	private double maxRows;
+	
+	private double maxCols;
 
 	/**
 	 * 
 	 */
 	public Excel2CSV() {
+		maxRows = 0;
+		maxCols = 0;
 	}
 
 	/**
@@ -36,8 +42,6 @@ public class Excel2CSV {
 	 */
 	public void echoAsCSV(String path) throws Exception {
 		Row row = null;
-		double maxRows = 0;
-		double maxCols = 0;
 		String stringCellV = "";
 		InputStream inp = null;
 		String campos = path.substring(0, path.indexOf("."));
@@ -117,19 +121,22 @@ public class Excel2CSV {
 	 */
 	public boolean verificarFormatoArchivo(Sheet sheet) throws Exception {
 		boolean correcto = false;
-		double maxRows = 0;
-		double maxCols = 0;
 		double cellValue = sheet.getRow(1).getCell(0).getNumericCellValue();
 		if (cellValue > 0) {
-			throw new Exception("Fromato inválido.");
+			throw new Exception("Formato inválido.");
 		}
 		cellValue = sheet.getRow(2).getCell(3).getNumericCellValue();
 		if (cellValue > 0) {
 			throw new Exception(
-					"Fromato inválido, las observaciones no deben incluir textos");
+					"Formato inválido, las observaciones no deben incluir textos");
 		} else {
 			maxRows = sheet.getRow(1).getCell(1).getNumericCellValue();
 			maxCols = sheet.getRow(2).getCell(4).getNumericCellValue();
+			if(maxRows<=1||maxCols<=1)
+			{
+				throw new Exception(
+				"Formato inválido, datos insuficientes");
+			}
 			for (int i = 2; i < maxCols; i++) {
 				cellValue = sheet.getRow(1).getCell(i).getNumericCellValue();
 				if (cellValue != maxRows) {
@@ -268,6 +275,34 @@ public class Excel2CSV {
 			fuente.delete();
 		}
 		
+	}
+
+	/**
+	 * @return
+	 */
+	public double getMaxRows() {
+		return maxRows;
+	}
+
+	/**
+	 * @param maxRows
+	 */
+	public void setMaxRows(double maxRows) {
+		this.maxRows = maxRows;
+	}
+
+	/**
+	 * @return
+	 */
+	public double getMaxCols() {
+		return maxCols;
+	}
+
+	/**
+	 * @param maxCols
+	 */
+	public void setMaxCols(double maxCols) {
+		this.maxCols = maxCols;
 	}
 
 	// public static void main(String[] args) {
