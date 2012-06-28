@@ -26,6 +26,8 @@ import javax.annotation.PostConstruct;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import org.apache.poi.ss.usermodel.Sheet;
 
@@ -143,6 +145,21 @@ public class InterfazPrograma extends JFrame
         setSize( 700, 350);
         setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         setTitle( "Segmentacion" );
+        try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     
@@ -231,10 +248,12 @@ public class InterfazPrograma extends JFrame
     					String a = f1.getCanonicalPath();
     					File f2 = new File("./data/");
     					String b = f2.getCanonicalPath()+ "\\";
+    					System.out.println(rutaCaract.replace(".xls", ".csv"));
     					File file = new File(rutaCaract.replace(".xls", ".csv"));
     					if(file.exists())
     					{
     						file.delete();
+    						file.deleteOnExit();
     					}
 						Runtime.getRuntime().exec("cmd /c start " + "data/calling.vbs " + "\"" + rutaCaract + "\"" + " " + "\"" + rutaIntencion.replace(".xls",".csv") + "\"" + " " + "\"" + f1.getCanonicalPath().replace(".xls",".csv") + "\"" + " " + "\"" +  f2.getCanonicalPath() + "\"");
 						
@@ -462,5 +481,13 @@ public class InterfazPrograma extends JFrame
 			e.printStackTrace();
 		}
 		return correct;
+	}
+	
+	/**
+	 * @return
+	 */
+	public double getCols()
+	{
+		return excel2csv.getMaxCols();
 	}
 }
