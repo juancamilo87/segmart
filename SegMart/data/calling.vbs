@@ -1,6 +1,5 @@
 if WScript.Arguments.Count <3 then
     WScript.Echo "Missing parameters"
-    Exit
 end if
 
 caracteristicas = Wscript.Arguments.Item(0) 
