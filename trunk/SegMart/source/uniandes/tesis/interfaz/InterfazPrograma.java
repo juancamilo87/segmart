@@ -224,7 +224,8 @@ public class InterfazPrograma extends JFrame
     			else{
     				try {
     					File f1 = new File("./docs/Base Info Caracteristicas.csv");
-						Runtime.getRuntime().exec("cmd /c start calling.vbs " + rutaCaract + " " + rutaIntencion.replace(".xls",".csv") + " " + f1.getCanonicalPath());
+    					File f2 = new File("./data/");
+						Runtime.getRuntime().exec("cmd /c start " + f2.getCanonicalPath()+ "calling.vbs " + rutaCaract + " " + rutaIntencion.replace(".xls",".csv") + " " + f1.getCanonicalPath());
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
