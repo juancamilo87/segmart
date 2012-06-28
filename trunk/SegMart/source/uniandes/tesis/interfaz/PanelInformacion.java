@@ -487,8 +487,8 @@ public class PanelInformacion extends JPanel implements ActionListener
 				File file = jfc.getSelectedFile();
 				if(file.exists()){
 				try {
-					ventanaPrincipal.setRutaIntencion(file.getCanonicalPath());
-				} catch (IOException e) {
+					ventanaPrincipal.setRutaIntencion(file.getPath());
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
