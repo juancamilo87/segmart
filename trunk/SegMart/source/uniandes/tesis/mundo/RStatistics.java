@@ -58,15 +58,14 @@ public class RStatistics
             
             
             File inten = new File(rutaIntencion);
+            File carac = new File(rutaCaract);
             System.out.println(rutaIntencion);
             re.eval("datos = read.csv(\""+inten.getCanonicalPath().replace("\\","/")+ "\")");
-            String a = re.eval("print(datos)").toString();
-            System.out.println(a);
             re.eval("library(\"mclust\")");
             re.eval("clust <- Mclust(datos[,-1])");
             re.eval("datos$clust<- clust$classification");
-            re.eval("segmentos <- split(datos,datos$clust");
-//            // Leer numero de clusters para segmentos
+            re.eval("segmentos <- split(datos,datos$clust)");
+            // Leer numero de clusters para segmentos
             REXP clust = re.eval("datos$clust");
             double[] clusters = clust.asDoubleArray();
             double num_clusters = 0;
@@ -74,35 +73,51 @@ public class RStatistics
             	if(clusters[i]>num_clusters)
             		num_clusters = clusters[i];
             }
-            System.out.println(num_clusters);
+            vars= 7;
+            System.out.println("El número de clusters es: "+num_clusters);
             
-//            
-//            re.eval("caract = read.csv(\"" + rutaCaract + "\")");
-//            String y;
-//            for(int j = 1; j<10;j++){
-//            	y = "Y$" + j + " <- cbind(";
-//            	for(int i = 2; i<vars;i++){
-//            	if(i==1)
-//            	y = y + "segmentos$'" + j + "'[," + i+ "]";
-//            	else
-//            	y = y + ",segmentos$'" + j + "[," + i+ "]";
-//            }
-//            	y = y + ")";
-//            	re.eval(y);
-//            }
-//            
-//            
-//            re.eval("segc <- split(caract,datos$clust");
-//            String x = "";
-//            for(int j = 1; j<10;j++){
-//            for(int i = 2; i<8;i++){
-//            	if(i==1)
-//	            	x = x + "segc$'" + j + "[," + i+ "]";
-//	            	else
-//	            	x = x + "+sec$'" + j + "[," + i+ "]";
-//            }
-//            }
-//            re.eval("man <- manova( y ~ " + x + ")");
+            
+            re.eval("caract = read.csv(\"" + carac.getCanonicalPath().replace("\\", "/") + "\")");
+            String y;
+            for(int j = 1; j<=num_clusters;j++){
+            	y = "Y" + j + " <- cbind(";
+            	for(int i = 2; i<=vars;i++){
+            	if(i==2)
+            	y = y + "segmentos$'" + j + "'[," + i+ "]";
+            	else
+            	y = y + ",segmentos$'" + j + "'[," + i+ "]";
+            }
+            	y = y + ")";
+            	re.eval(y);
+            }
+            
+            REXP cols = re.eval("length(caract[1,])");
+            int colu = 0;
+            try{
+            colu = cols.asInt();
+            System.out.println(colu);
+            }
+            catch(Exception e){
+            	e.getStackTrace();
+            }
+            re.eval("segc <- split(caract,datos$clust)");
+            
+            String x[] = new String[(int) num_clusters];
+            
+            for(int j = 1; j<=num_clusters;j++){
+            	x[j-1] = "";	
+            for(int i = 2; i<=colu;i++){
+            	if(i==1)
+	            	x[j-1] = x[j-1] + "segc$'" + j + "'[," + i+ "]";
+	            	else
+	            	x[j-1] = x[j-1] + "+segc$'" + j + "'[," + i+ "]";
+            }
+            
+            }
+            for(int j = 1; j<=num_clusters;j++){
+            	re.eval("man"+j+" <- manova( y"+j+" ~ " + x[j-1] + ")");
+            }
+            
 //           
 //            
 //       
