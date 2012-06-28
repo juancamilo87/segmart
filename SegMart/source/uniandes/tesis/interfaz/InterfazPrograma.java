@@ -21,6 +21,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import org.apache.poi.ss.usermodel.Sheet;
+
+import uniandes.tesis.mundo.Excel2CSV;
+
 
 
 /**
@@ -48,6 +52,8 @@ public class InterfazPrograma extends JFrame
 	private String rutaIntencion;
 	
 	private String rutaCaract;
+	
+	private Excel2CSV excel2csv;
 
     // -----------------------------------------------------------------
     // Atributos de la interfaz
@@ -92,7 +98,7 @@ public class InterfazPrograma extends JFrame
     	paso = "Tipo de Analisis";
     	tipo_analisis="";
         construirForma( );
-        
+        excel2csv = new Excel2CSV();
 //        construirMenu( );
 //        conectar( );
     }
@@ -154,8 +160,16 @@ public class InterfazPrograma extends JFrame
     	return paso;
     }
     
-    public Boolean verificarArchivo(String ruta){
-    	return false;
+    public boolean verificarArchivo(String ruta){
+    	boolean correct = false;
+    	Sheet sheet;
+		try {
+			sheet = excel2csv.returnSheet(ruta);
+			correct = excel2csv.verificarFormatoArchivo(sheet);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		}
+    	return correct;
     }
     
     public void refrescar(String accion){
@@ -173,6 +187,7 @@ public class InterfazPrograma extends JFrame
     			if(rutaInfoGen.equalsIgnoreCase(""))
     				JOptionPane.showMessageDialog(this,"Debe seleccionar un archivo.","Error",JOptionPane.ERROR_MESSAGE);
     			else if(verificarArchivo(rutaInfoGen)){
+    				echoAsCSV(rutaInfoGen);
     				paso = "Estilo de Vida";
     				barraProgreso.refrescar();
     				panelInformacion.refrescar();
@@ -183,6 +198,7 @@ public class InterfazPrograma extends JFrame
     			if(rutaEstilo.equalsIgnoreCase(""))
     				JOptionPane.showMessageDialog(this,"Debe seleccionar un archivo.","Error",JOptionPane.ERROR_MESSAGE);
     			else if(verificarArchivo(rutaEstilo)){
+    				echoAsCSV(rutaEstilo);
     			paso = "Intencion de Compra";
     			barraProgreso.refrescar();
     			panelInformacion.refrescar();
@@ -193,6 +209,7 @@ public class InterfazPrograma extends JFrame
     			if(rutaIntencion.equalsIgnoreCase(""))
     				JOptionPane.showMessageDialog(this,"Debe seleccionar un archivo.","Error",JOptionPane.ERROR_MESSAGE);
     			else if(verificarArchivo(rutaIntencion)){
+    				echoAsCSV(rutaIntencion);
     			paso = "Caracteristicas de Productos";
     			barraProgreso.refrescar();
     			panelInformacion.refrescar();
@@ -203,6 +220,7 @@ public class InterfazPrograma extends JFrame
     			if(rutaCaract.equalsIgnoreCase(""))
     				JOptionPane.showMessageDialog(this,"Debe seleccionar un archivo.","Error",JOptionPane.ERROR_MESSAGE);
     			else if(verificarArchivo(rutaCaract)){
+    				//Correr la macro
     			paso = "Resumen";
     			barraProgreso.refrescar();
     			panelInformacion.refrescar();
@@ -367,5 +385,21 @@ public class InterfazPrograma extends JFrame
 
 	public void setRutaCaract(String rutaCaract) {
 		this.rutaCaract = rutaCaract;
+	}
+	
+	/**
+	 * Creates a CSV file from an existing .xls file.
+	 * @param path
+	 */
+	public void echoAsCSV(String path)
+	{
+		try 
+		{
+			excel2csv.echoAsCSV(path);
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }
