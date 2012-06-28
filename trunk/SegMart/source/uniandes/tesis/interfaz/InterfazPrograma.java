@@ -250,11 +250,8 @@ public class InterfazPrograma extends JFrame
     					String b = f2.getCanonicalPath()+ "\\";
     					System.out.println(rutaCaract.replace(".xls", ".csv"));
     					File file = new File(rutaCaract.replace(".xls", ".csv"));
-    					if(file.exists())
-    					{
-    						file.delete();
-    						file.deleteOnExit();
-    					}
+    					file.delete();
+						file.deleteOnExit();
 						Runtime.getRuntime().exec("cmd /c start " + "data/calling.vbs " + "\"" + rutaCaract + "\"" + " " + "\"" + rutaIntencion.replace(".xls",".csv") + "\"" + " " + "\"" + f1.getCanonicalPath().replace(".xls",".csv") + "\"" + " " + "\"" +  f2.getCanonicalPath() + "\"");
 						
 
@@ -402,10 +399,7 @@ public class InterfazPrograma extends JFrame
 		tipo_analisis="";
 		paso="";
 		File file = new File(rutaCaract.replace(".xls",".csv"));
-		if(file.exists())
-		{
-			file.delete();
-		}
+		file.delete();
 		rutaInfoGen="";
 		rutaCaract="";
 		rutaEstilo="";
