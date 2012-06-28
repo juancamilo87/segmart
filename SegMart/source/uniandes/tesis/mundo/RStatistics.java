@@ -7,11 +7,16 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
 
 import uniandes.tesis.interfaz.InterfazPrograma;
@@ -42,24 +47,35 @@ public class RStatistics
 		
 		try{
             
-    		re.eval("",false);
     		double vars = vp.getCols();
             String rutaIntencion = vp.getRutaIntencion().replace(".xls", ".csv");
+            
             String rutaCaract = vp.getRutaCaract().replace(".xls", ".csv");
             File f = new File("data/");
-            System.out.println(f.getCanonicalPath().replace("\\","/"));
             
             rutaIntencion = "C:/Users/Cami/Google Drive/Dropbox/Dropbox/Andes/2012/Tesis/n12_almacen/docs/Base Info Intencionmod.csv";
             rutaCaract = "";
+            
+            
+            File inten = new File(rutaIntencion);
             System.out.println(rutaIntencion);
-            re.eval("datos = read.csv(\""+rutaIntencion + "\")");
+            re.eval("datos = read.csv(\""+inten.getCanonicalPath().replace("\\","/")+ "\")");
             String a = re.eval("print(datos)").toString();
             System.out.println(a);
-//            re.eval("clust <- mClust(datos[-,1])");
-//            re.eval("datos$clust<- clust$classification");
-//            re.eval("segmentos <- split(datos,datos$clust");
+            re.eval("library(\"mclust\")");
+            re.eval("clust <- Mclust(datos[,-1])");
+            re.eval("datos$clust<- clust$classification");
+            re.eval("segmentos <- split(datos,datos$clust");
 //            // Leer numero de clusters para segmentos
-//            
+            REXP clust = re.eval("datos$clust");
+            double[] clusters = clust.asDoubleArray();
+            double num_clusters = 0;
+            for(int i = 0; i<clusters.length;i++){
+            	if(clusters[i]>num_clusters)
+            		num_clusters = clusters[i];
+            }
+            System.out.println(num_clusters);
+            
 //            
 //            re.eval("caract = read.csv(\"" + rutaCaract + "\")");
 //            String y;
@@ -109,6 +125,10 @@ public class RStatistics
         	e.printStackTrace();
             System.out.println(e.toString());
         }
+		
+		
+		
+		
 	}
 
 	
@@ -131,6 +151,7 @@ public static void main(String[] args) throws IOException
 	        
 	    	
 	    }
+
 
 	
 
