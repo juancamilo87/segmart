@@ -422,8 +422,13 @@ public class PanelInformacion extends JPanel implements ActionListener
 				}
             }
             }
-            return destino.getPath();
-    	
+            try {
+				return destino.getCanonicalPath();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	return destino.getPath();
     	
     	
     }
@@ -481,7 +486,12 @@ public class PanelInformacion extends JPanel implements ActionListener
 			if (returnval == JFileChooser.APPROVE_OPTION) {
 				File file = jfc.getSelectedFile();
 				if(file.exists()){
-				ventanaPrincipal.setRutaIntencion(file.getPath());
+				try {
+					ventanaPrincipal.setRutaIntencion(file.getCanonicalPath());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				rutaIntencion.setText(ventanaPrincipal.getRutaIntencion());
 				// This is where a real application would open the file.
 			}
@@ -498,7 +508,12 @@ public class PanelInformacion extends JPanel implements ActionListener
 			if (returnval == JFileChooser.APPROVE_OPTION) {
 				File file = jfc.getSelectedFile();
 				if(file.exists()){
-				ventanaPrincipal.setRutaCaract(file.getPath());
+				try {
+					ventanaPrincipal.setRutaCaract(file.getCanonicalPath());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				rutaCaract.setText(ventanaPrincipal.getRutaCaract());
 				// This is where a real application would open the file.
 			}

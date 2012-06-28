@@ -15,6 +15,8 @@ package uniandes.tesis.interfaz;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.io.File;
+import java.io.IOException;
 
 import javax.annotation.PostConstruct;
 import javax.swing.JFrame;
@@ -219,7 +221,16 @@ public class InterfazPrograma extends JFrame
     		}else if(paso.equalsIgnoreCase("Caracteristicas de Productos")){
     			if(rutaCaract.equalsIgnoreCase(""))
     				JOptionPane.showMessageDialog(this,"Debe seleccionar un archivo.","Error",JOptionPane.ERROR_MESSAGE);
-    			else if(verificarArchivo(rutaCaract)){
+    			else{
+    				try {
+    					File f1 = new File("./docs/Base Info Caracteristicas.csv");
+						Runtime.getRuntime().exec("cmd /c start calling.vbs " + rutaCaract + " " + rutaIntencion.replace(".xls",".csv") + " " + f1.getCanonicalPath());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+    			}
+    			if(verificarArchivo(rutaCaract)){
     				//Correr la macro
     			paso = "Resumen";
     			barraProgreso.refrescar();
