@@ -17,7 +17,7 @@ xlsm = Wscript.Arguments.Item(3)
 Dim objXL
 
 Set objXL = CreateObject("Excel.Application")
-objXL.visible = True
+
 With objXL
     .Workbooks.Open (xlsm & "/toCSV.xlsm")
     .Run "Module1.toCSV" , Chr(34) & caracteristicas & Chr(34), Chr(34) & intencion & Chr(34) ,Chr(34) & destino & Chr(34)
@@ -25,5 +25,5 @@ With objXL
     .Application.Quit
 End With
 Set objXL = Nothing
-
+WScript.Echo "Macro terminada"
 End Sub 
