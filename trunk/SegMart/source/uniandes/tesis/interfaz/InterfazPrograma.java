@@ -223,12 +223,14 @@ public class InterfazPrograma extends JFrame
     				JOptionPane.showMessageDialog(this,"Debe seleccionar un archivo.","Error",JOptionPane.ERROR_MESSAGE);
     			else{
     				try {
-    					File f1 = new File("./docs/Base Info Caracteristicas.csv");
+    					File f1 = new File("./docs/Base Info Caracteristicas.xls");
     					String a = f1.getCanonicalPath();
     					File f2 = new File("./data/");
-    					String b = f2.getCanonicalPath();
-						Runtime.getRuntime().exec("cmd start " + f2.getCanonicalPath()+ "/calling.vbs " + rutaCaract + " " + rutaIntencion.replace(".xls",".csv") + " " + f1.getCanonicalPath() + " " +  f2.getCanonicalPath() + "/toCSV.xlsm" );
-					} catch (IOException e) {
+    					String b = f2.getCanonicalPath()+ "\\";
+    					
+						Runtime.getRuntime().exec("cmd /c start " + "data/calling.vbs " + "\"" + rutaCaract + "\"" + " " + "\"" + rutaIntencion.replace(".xls",".csv") + "\"" + " " + "\"" + f1.getCanonicalPath().replace(".xls",".csv") + "\"" + " " + "\"" +  f2.getCanonicalPath() + "\"");
+					
+    				} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
