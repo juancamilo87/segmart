@@ -25,5 +25,4 @@ With objXL
     .Application.Quit
 End With
 Set objXL = Nothing
-WScript.Echo "Macro terminada"
 End Sub 
