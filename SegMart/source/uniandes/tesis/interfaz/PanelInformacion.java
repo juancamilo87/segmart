@@ -422,12 +422,12 @@ public class PanelInformacion extends JPanel implements ActionListener
 				}
             }
             }
-//            try {
-//				return destino.getCanonicalPath();
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+            try {
+				return destino.getCanonicalPath();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     	return destino.getPath();
     	
     	
@@ -487,7 +487,7 @@ public class PanelInformacion extends JPanel implements ActionListener
 				File file = jfc.getSelectedFile();
 				if(file.exists()){
 				try {
-					ventanaPrincipal.setRutaIntencion(file.getPath());
+					ventanaPrincipal.setRutaIntencion(file.getCanonicalPath());
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
