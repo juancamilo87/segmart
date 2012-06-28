@@ -15,8 +15,12 @@ package uniandes.tesis.interfaz;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import javax.annotation.PostConstruct;
 import javax.swing.JFrame;
@@ -149,8 +153,8 @@ public class InterfazPrograma extends JFrame
      */
     public void dispose( )
     {
+    	limpiar();
         super.dispose( );
-        
     }
     
     public void cambiarTipoAnalisis(String tipo){
@@ -227,15 +231,20 @@ public class InterfazPrograma extends JFrame
     					String a = f1.getCanonicalPath();
     					File f2 = new File("./data/");
     					String b = f2.getCanonicalPath()+ "\\";
-    					
+    					File file = new File(rutaCaract.replace(".xls", ".csv"));
+    					if(file.exists())
+    					{
+    						file.delete();
+    					}
 						Runtime.getRuntime().exec("cmd /c start " + "data/calling.vbs " + "\"" + rutaCaract + "\"" + " " + "\"" + rutaIntencion.replace(".xls",".csv") + "\"" + " " + "\"" + f1.getCanonicalPath().replace(".xls",".csv") + "\"" + " " + "\"" +  f2.getCanonicalPath() + "\"");
-					
+						
+
     				} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
+					} 
     			}
-    			if(verificarArchivo(rutaCaract)){
+    			if(verificarCaract(rutaCaract.replace(".xls", ".csv"))){
     				//Correr la macro
     			paso = "Resumen";
     			barraProgreso.refrescar();
@@ -373,10 +382,16 @@ public class InterfazPrograma extends JFrame
 	public void limpiar(){
 		tipo_analisis="";
 		paso="";
+		File file = new File(rutaCaract.replace(".xls",".csv"));
+		if(file.exists())
+		{
+			file.delete();
+		}
 		rutaInfoGen="";
 		rutaCaract="";
 		rutaEstilo="";
 		rutaIntencion="";
+		
 	}
 
 	public String getRutaEstilo() {
@@ -417,5 +432,35 @@ public class InterfazPrograma extends JFrame
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
+	}
+	
+	/**
+	 * @param path
+	 * @return 
+	 */
+	public boolean verificarCaract(String path)
+	{
+		boolean correct = false;
+		File file = new File(path);
+		while(!file.exists())
+		{
+			
+		}
+		try {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+			String code = reader.readLine();
+			if(code.equalsIgnoreCase("Error"))
+			{
+				throw new Exception("Los archivos de intención de compra y caracteristicas de producto no coinciden.");
+			}
+			else
+			{
+				correct = true;
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
+		return correct;
 	}
 }

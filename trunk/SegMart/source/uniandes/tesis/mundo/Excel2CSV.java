@@ -59,7 +59,7 @@ public class Excel2CSV {
 			Workbook wb = new HSSFWorkbook(inp);
 			Sheet sheet = wb.getSheetAt(0);
 			verificarFormatoArchivo(sheet);
-			maxRows = sheet.getRow(1).getCell(1).getNumericCellValue();
+			maxRows = sheet.getRow(1).getCell(1).getNumericCellValue()+3;
 			maxCols = sheet.getRow(2).getCell(4).getNumericCellValue();
 			for (int i = 0; i < maxCols; i++) {
 				if (i != (maxCols - 1)) {
