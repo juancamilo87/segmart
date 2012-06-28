@@ -511,7 +511,7 @@ public class PanelInformacion extends JPanel implements ActionListener
         else if (comando.equalsIgnoreCase("CREAR_ARCHIVO")){
         	JOptionPane.showMessageDialog(this,"Ingrese los datos a analizar y guarde el archivo en la dirección predeterminada.","Archivo base",JOptionPane.INFORMATION_MESSAGE);
         	if(ventanaPrincipal.darPaso().equalsIgnoreCase("Informacion Mercado")){
-        		String nuevo_archivo = copiarArchivo("docs/Base Info General.xlsx");
+        		String nuevo_archivo = copiarArchivo("docs/Base Info General.xls");
         		try {  
         		     Desktop.getDesktop().open(new File(nuevo_archivo));  
         		} catch (IOException e) {e.printStackTrace();}
@@ -521,7 +521,7 @@ public class PanelInformacion extends JPanel implements ActionListener
         		
         	}
         	else if(ventanaPrincipal.darPaso().equalsIgnoreCase("Estilo de Vida")){
-        		String nuevo_archivo = copiarArchivo("docs/Base Info Estilo.xlsx");
+        		String nuevo_archivo = copiarArchivo("docs/Base Info Estilo.xls");
         		try {  
         		     Desktop.getDesktop().open(new File(nuevo_archivo));  
         		} catch (IOException e) {e.printStackTrace();}
@@ -531,7 +531,7 @@ public class PanelInformacion extends JPanel implements ActionListener
         		
         	}
         	else if(ventanaPrincipal.darPaso().equalsIgnoreCase("Intencion de Compra")){
-        		String nuevo_archivo = copiarArchivo("docs/Base Info Intencion.xlsx");
+        		String nuevo_archivo = copiarArchivo("docs/Base Info Intencion.xls");
         		try {  
         		     Desktop.getDesktop().open(new File(nuevo_archivo));  
         		} catch (IOException e) {e.printStackTrace();}
@@ -541,7 +541,7 @@ public class PanelInformacion extends JPanel implements ActionListener
         		
         	}
         	else if(ventanaPrincipal.darPaso().equalsIgnoreCase("Caracteristicas de Productos")){
-        		String nuevo_archivo = copiarArchivo("docs/Base Info Caracteristicas.xlsx");
+        		String nuevo_archivo = copiarArchivo("docs/Base Info Caracteristicas.xls");
         		try {  
         		     Desktop.getDesktop().open(new File(nuevo_archivo));  
         		} catch (IOException e) {e.printStackTrace();}
