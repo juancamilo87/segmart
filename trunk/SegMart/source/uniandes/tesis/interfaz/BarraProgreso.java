@@ -130,6 +130,7 @@ public class BarraProgreso extends JPanel
     public void refrescar(){
     	String paso = ventanaPrincipal.darPaso();
     	String tipo = ventanaPrincipal.darTipo();
+    	tipo = ("CREACION".equalsIgnoreCase(tipo))?"Creación Producto":"Búsqueda de Mercado";
     	lblTpo0.setText(tipo);
     	if(paso.equalsIgnoreCase("Tipo de Analisis")){
     		lblTpo2.setVisible(false);
