@@ -422,12 +422,12 @@ public class PanelInformacion extends JPanel implements ActionListener
 				}
             }
             }
-            try {
-				return destino.getCanonicalPath();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//            try {
+//				return destino.getCanonicalPath();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
     	return destino.getPath();
     	
     	
