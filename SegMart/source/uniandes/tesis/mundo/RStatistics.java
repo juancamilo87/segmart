@@ -53,7 +53,7 @@ public class RStatistics
             String rutaCaract = vp.getRutaCaract().replace(".xls", ".csv");
             File f = new File("data/");
             
-            rutaIntencion = "C:/Users/Julio Mendoza/Documents/Workspace/SegMart/docs/Base Info Intencionmod.csv";
+            rutaIntencion = "C:/Users/Cami/Google Drive/Dropbox/Dropbox/Andes/2012/Tesis/n12_almacen/docs/Base Info Intencionmod.csv";
             rutaCaract = "";
             
             
@@ -64,18 +64,28 @@ public class RStatistics
             re.eval("install.packages(\"mclust\")");
             re.eval("library(\"mclust\")");
             re.eval("clust <- Mclust(datos[,-1])");
-            re.eval("datos$clust<- clust$classification");
-            re.eval("segmentos <- split(datos,datos$clust)");
+            
             // Leer numero de clusters para segmentos
-            REXP clust = re.eval("datos$clust");
+            REXP clust = re.eval("clust$classification");
             double[] clusters = clust.asDoubleArray();
             double num_clusters = 0;
             for(int i = 0; i<clusters.length;i++){
             	if(clusters[i]>num_clusters)
             		num_clusters = clusters[i];
             }
-            vars= 7;
             System.out.println("El número de clusters es: "+num_clusters);
+            re.eval("nclust <- kmeans(datos[,-1],"+num_clusters+")");
+            re.eval("datos$cluster <- nclust$cluster");
+            REXP sumac = re.eval("nclust$withinss");
+            double[] ss = sumac.asDoubleArray();
+            
+            for (double d : ss) {
+				System.out.println(d);
+			}
+            
+            re.eval("segmentos <- split(datos,datos$cluster)");
+            
+            vars= 7;
             
             
             re.eval("caract = read.csv(\"" + carac.getCanonicalPath().replace("\\", "/") + "\")");
