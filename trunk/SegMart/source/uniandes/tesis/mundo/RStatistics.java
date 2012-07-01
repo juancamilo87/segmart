@@ -53,7 +53,7 @@ public class RStatistics
             String rutaCaract = vp.getRutaCaract().replace(".xls", ".csv");
             File f = new File("data/");
             
-            rutaIntencion = "C:/Users/Cami/Google Drive/Dropbox/Dropbox/Andes/2012/Tesis/n12_almacen/docs/Base Info Intencionmod.csv";
+            rutaIntencion = "C:/Users/Julio Mendoza/Documents/Workspace/SegMart/docs/Base Info Intencionmod.csv";
             rutaCaract = "";
             
             
@@ -61,6 +61,7 @@ public class RStatistics
             File carac = new File(rutaCaract);
             System.out.println(rutaIntencion);
             re.eval("datos = read.csv(\""+inten.getCanonicalPath().replace("\\","/")+ "\")");
+            re.eval("install.packages(\"mclust\")");
             re.eval("library(\"mclust\")");
             re.eval("clust <- Mclust(datos[,-1])");
             re.eval("datos$clust<- clust$classification");
