@@ -36,6 +36,9 @@ public class RStatistics
 	public RStatistics(String[] args){
 		
 		re=new Rengine(args, false, new TextConsole());
+		
+		
+		
 	    System.out.println("Rengine created, waiting for R");
 		// the engine creates R is a new thread, so we should wait until it's ready
 	    if (!re.waitForR()) {
@@ -82,6 +85,8 @@ public class RStatistics
             for (double d : ss) {
 				System.out.println(d);
 			}
+            
+            
             
             re.eval("segmentos <- split(datos,datos$cluster)");
             
@@ -161,6 +166,8 @@ public class RStatistics
 	
 public static void main(String[] args) throws IOException
     {
+	
+	
 	
 	
 	System.out.println("Creating Rengine (with arguments)");
