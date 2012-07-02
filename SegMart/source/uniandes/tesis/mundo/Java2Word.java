@@ -17,6 +17,7 @@ import word.w2004.style.ParagraphStyle.Align;
 
 
 /**
+ * http://java2word.blogspot.com/p/all-in-one-example.html
  * @author Julio Mendoza
  *
  */
@@ -25,6 +26,7 @@ public class Java2Word {
 	
 	
 	/**
+	 * http://java2word.blogspot.com/p/all-in-one-example.html
 	 * @param categoria
 	 * @param clusters
 	 */
