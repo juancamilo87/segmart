@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -131,7 +132,8 @@ public class RStatistics
             
             }
             for(int j = 1; j<=num_clusters;j++){
-            	re.eval("man"+j+" <- summary.lm(manova( Y"+j+" ~ " + x[j-1] + "))");
+            	re.eval("man"+j+" <- manova( Y"+j+" ~ " + x[j-1] + ")");
+            	re.eval("sum_man"+j+" <- summary.lm(manova( Y"+j+" ~ " + x[j-1] + "))");
             }
             
             String man_car = "";
@@ -153,14 +155,110 @@ public class RStatistics
             }
             	z = z + ")";
             	re.eval(z);
-            	
+            	re.eval("md <- manova("+ z+" ~ " + man_car + ")");
             	re.eval("sum_man <- summary.lm(manova("+ z+" ~ " + man_car + "))");
+            	double[] revision = re.eval("md$coefficients[,1]").asDoubleArray();
+            	
+            	ArrayList<Double> orden = new ArrayList<Double>();
+            	for(int i = 0; i<revision.length;i++)
+            	{
+            		if(!Double.isNaN(revision[i]))
+            		{
+            		orden.add((double) (i+1));	
+            		}
+            		
+            	}
+            	
+            	double[] carSig = re.eval("sum_man$coefficients[,4]").asDoubleArray();
+            	
+            	ArrayList<ArrayList<Double>> carSigG = new ArrayList<ArrayList<Double>>();
+            	for(int i = 0; i<carSig.length;i++){
+            		if(carSig[i]<0.05){
+            			ArrayList<Double> temp = new ArrayList<Double>();
+            			temp.add(orden.get(i));
+            			temp.add(carSig[i]);
+            			carSigG.add(temp);
+            		}
+            	}
+            	ArrayList<Double> significativas = new ArrayList<Double>();
+            	for(ArrayList m : carSigG){
+            		significativas.add((Double) m.get(0));
+            	}
+            	
+            	
+            	ArrayList<ArrayList<Double>> significativasC = new ArrayList<ArrayList<Double>>();
+            	
+            	//Ahora por cluster
+            	for(int j = 1; j<=num_clusters;j++){
+           		 
+                 	
+                 
+            	double[] revisionC = re.eval("man" + j + "$coefficients[,1]").asDoubleArray();
+            	
+            	ArrayList<Double> ordenC = new ArrayList<Double>();
+            	for(int i = 0; i<revisionC.length;i++)
+            	{
+            		if(!Double.isNaN(revisionC[i]))
+            		{
+            		ordenC.add((double) (i+1));	
+            		}
+            		
+            	}
+            	
+            	double[] carSigC = re.eval("sum_man"+ j + "$coefficients[,4]").asDoubleArray();
+            	
+            	ArrayList<ArrayList<Double>> carSigGC = new ArrayList<ArrayList<Double>>();
+            	for(int i = 0; i<carSigC.length;i++){
+            		if(carSigC[i]<0.05){
+            			ArrayList<Double> temp = new ArrayList<Double>();
+            			temp.add(ordenC.get(i));
+            			temp.add(carSigC[i]);
+            			carSigGC.add(temp);
+            		}
+            	}
+            	ArrayList<Double> significativasCa = new ArrayList<Double>();
+            	for(ArrayList m : carSigGC){
+            		significativasCa.add((Double) m.get(0));
+            	}
+            	significativasC.add(significativasCa);
+            	
+            	}
+            	
+            	//Información General por Cluster
+            	
+            	String rutaGeneral= vp.getRutaInfoGen().replace(".xls", ".csv");
+                
+                String rutaEstilo = vp.getRutaEstilo().replace(".xls", ".csv");
+                
+                
+                rutaGeneral = "C:/Users/Cami/Google Drive/Dropbox/Dropbox/Andes/2012/Tesis/n12_almacen/docs/Base Info Generalmod.csv";
+                rutaEstilo = "C:/Users/Cami/Google Drive/Dropbox/Dropbox/Andes/2012/Tesis/n12_almacen/docs/Base Info Estilomod.csv";
+                
+                
+                File general = new File(rutaGeneral);
+                File estilo = new File(rutaEstilo);
+                
+                re.eval("general = read.csv(\""+general.getCanonicalPath().replace("\\","/")+ "\")");
+                re.eval("estilo = read.csv(\""+estilo.getCanonicalPath().replace("\\","/")+ "\")");
+            	
+            	re.eval("generals <- split(general,datos$clust)");
+            	re.eval("estilos <- split(estilo,datos$clust)");
+            	
+            	
+            	ArrayList<String[]> mGeneral = new ArrayList<String[]>();
+            	ArrayList<String[]> mEstilo = new ArrayList<String[]>();
+            	
+            	for(int i = 1; i<=num_clusters;i++){
+            	String[] dGene = re.eval("summary(generals$'"+ i + "')[4,-1]").asStringArray();
+            	String[] dEst = re.eval("summary(estilos$'"+ i + "')[4,-1]").asStringArray();
+            	
+            	mGeneral.add(dGene);
+            	mEstilo.add(dEst);
+            	
+            	}
+                int a = 1;
+       
             
-//           
-//            
-//       
-//       
-//            
             
             if (true) {
         	    // so far we used R as a computational slave without REPL
