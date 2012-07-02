@@ -57,7 +57,7 @@ public class RStatistics
             File f = new File("data/");
             
             rutaIntencion = "C:/Users/Cami/Google Drive/Dropbox/Dropbox/Andes/2012/Tesis/n12_almacen/docs/Base Info Intencionmod.csv";
-            rutaCaract = "";
+            rutaCaract = "C:/Users/Cami/Google Drive/Dropbox/Dropbox/Andes/2012/Tesis/n12_almacen/docs/Base Info Caracteristicas.csv";
             
             
             File inten = new File(rutaIntencion);
@@ -131,8 +131,32 @@ public class RStatistics
             
             }
             for(int j = 1; j<=num_clusters;j++){
-            	re.eval("man"+j+" <- manova( y"+j+" ~ " + x[j-1] + ")");
+            	re.eval("man"+j+" <- manova( Y"+j+" ~ " + x[j-1] + ")");
             }
+            
+            String man_car = "";
+            for(int i = 2; i<=colu;i++){
+            	if(i==1)
+	            	man_car = man_car + "caract[," + i+ "]";
+	            	else
+	            	man_car = man_car + "+caract[," + i+ "]";
+            }
+            
+            String z;
+            
+            	z = "Z <- cbind(";
+            	for(int i = 2; i<=vars;i++){
+            	if(i==2)
+            	z = z + "datos[," + i+ "]";
+            	else
+            	z = z + ",datos[," + i+ "]";
+            }
+            	z = z + ")";
+            	re.eval(z);
+            	
+            	
+            	re.eval("lm_global <- lm("+ z+" ~ " + man_car + ")");
+            	re.eval("man_global <- manova("+ z+" ~ " + man_car + ")");
             
 //           
 //            
