@@ -131,7 +131,7 @@ public class RStatistics
             
             }
             for(int j = 1; j<=num_clusters;j++){
-            	re.eval("man"+j+" <- manova( Y"+j+" ~ " + x[j-1] + ")");
+            	re.eval("man"+j+" <- summary.lm(manova( Y"+j+" ~ " + x[j-1] + "))");
             }
             
             String man_car = "";
@@ -154,9 +154,7 @@ public class RStatistics
             	z = z + ")";
             	re.eval(z);
             	
-            	
-            	re.eval("lm_global <- lm("+ z+" ~ " + man_car + ")");
-            	re.eval("man_global <- manova("+ z+" ~ " + man_car + ")");
+            	re.eval("sum_man <- summary.lm(manova("+ z+" ~ " + man_car + "))");
             
 //           
 //            
