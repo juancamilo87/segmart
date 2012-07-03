@@ -16,6 +16,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -29,7 +30,7 @@ public class PanelLogo extends JPanel
     // Constantes
     // -----------------------------------------------------------------
 
-    private static final String PATH_LOGO = "nuevaVenta";
+    private static final String PATH_LOGO = "data/logo.png";
 
     // -----------------------------------------------------------------
     // Atributos
@@ -54,7 +55,9 @@ public class PanelLogo extends JPanel
     {
         ventanaPrincipal = ip;
 
-        JLabel tPrueba = new JLabel("Panel Logo");
+        JLabel tPrueba = new JLabel();
+        ImageIcon icon = new ImageIcon(PATH_LOGO);
+        tPrueba.setIcon(icon);
         add( tPrueba );
     }
 
