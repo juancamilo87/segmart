@@ -16,6 +16,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import org.apache.poi.ss.usermodel.Sheet;
 
+import uniandes.tesis.mundo.Cluster;
 import uniandes.tesis.mundo.Excel2CSV;
 import uniandes.tesis.mundo.Java2Word;
 import uniandes.tesis.mundo.RStatistics;
@@ -98,10 +99,6 @@ public class InterfazPrograma extends JFrame {
 	 */
 	private ArrayList<String> dispCar;
 
-	// -----------------------------------------------------------------
-	// Atributos de la interfaz
-	// -----------------------------------------------------------------
-
 	/**
 	 * Es el panel que se usa para registrar un producto
 	 */
@@ -121,6 +118,11 @@ public class InterfazPrograma extends JFrame {
 	 * Es el panel con los botones para los puntos de extensión
 	 */
 	private PanelBotones panelBotones;
+	
+	/**
+	 * Arreglo de clústeres que contienen la información de las características significativas.
+	 */
+	private ArrayList<Cluster> arrCluesters;
 
 	// -----------------------------------------------------------------
 	// Constructores
@@ -178,7 +180,7 @@ public class InterfazPrograma extends JFrame {
 		add(panelBotones, BorderLayout.SOUTH);
 		setSize(700, 350);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setTitle("Segmentacion");
+		setTitle("Segmart");
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e) {
@@ -704,6 +706,22 @@ public class InterfazPrograma extends JFrame {
 	 */
 	public void setDispCar(ArrayList<String> dispCar) {
 		this.dispCar = dispCar;
+	}
+
+	/**
+	 * Retorna el arreglo de clústeres.
+	 * @return the arrCluesters El arreglo de clústeres.
+	 */
+	public ArrayList<Cluster> getArrCluesters() {
+		return arrCluesters;
+	}
+
+	/**
+	 * Cambia el arreglo de clústeres.
+	 * @param arrCluesters El nuevo arreglo de clústeres. 
+	 */
+	public void setArrCluesters(ArrayList<Cluster> arrCluesters) {
+		this.arrCluesters = arrCluesters;
 	}
 
 }
