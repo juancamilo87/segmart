@@ -103,7 +103,7 @@ public class PanelBotones extends JPanel implements ActionListener
         FlowLayout fl = new FlowLayout();
         fl.setHgap(100);
         JPanel panel = new JPanel(fl);
-        close = new JButton("Cerrar");
+        close = new JButton("Salir");
         close.setActionCommand("CERRAR");
         close.addActionListener(this);
         close.setVisible(false);
@@ -175,12 +175,13 @@ public class PanelBotones extends JPanel implements ActionListener
     public void actionPerformed( ActionEvent evento )
     {
         String comando = evento.getActionCommand( );
-        if(comando.equalsIgnoreCase("SEGUIR"))
-        	if(listo)
-            ventanaPrincipal.refrescar("Siguiente");
-        	else
-        		JOptionPane.showMessageDialog(this,"Seleccione un tipo de análisis","Información Incompleta", JOptionPane.INFORMATION_MESSAGE);
-        else if(comando.equalsIgnoreCase("REGRESAR"))
+        ventanaPrincipal.refrescar("Siguiente");
+//        if(comando.equalsIgnoreCase("SEGUIR"))
+//        	if(listo)
+//            ventanaPrincipal.refrescar("Siguiente");
+//        	else
+//        		JOptionPane.showMessageDialog(this,"Seleccione un tipo de análisis","Información Incompleta", JOptionPane.INFORMATION_MESSAGE);
+        if(comando.equalsIgnoreCase("REGRESAR"))
         	ventanaPrincipal.refrescar("Anterior");
         else if(comando.equalsIgnoreCase("Reiniciar"))
         	ventanaPrincipal.refrescar("Reiniciar");

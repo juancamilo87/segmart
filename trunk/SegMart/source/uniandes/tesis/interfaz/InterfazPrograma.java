@@ -8,11 +8,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.filechooser.FileFilter;
 
 import org.apache.poi.ss.usermodel.Sheet;
 
@@ -251,6 +253,7 @@ public class InterfazPrograma extends JFrame {
 
 		if (accion.equalsIgnoreCase("Siguiente")) {
 			if (paso.equalsIgnoreCase("Tipo de Analisis")) {
+				cambiarTipoAnalisis("CREACION");
 				paso = "Informacion Mercado";
 				barraProgreso.refrescar();
 				panelInformacion.refrescar();
@@ -414,23 +417,6 @@ public class InterfazPrograma extends JFrame {
 		}
 	}
 
-	/**
-	 * Método para la extensión 1
-	 */
-	public void reqFuncOpcion1() {
-		String resultado = "resultado1";
-		JOptionPane.showMessageDialog(this, resultado, "Respuesta",
-				JOptionPane.INFORMATION_MESSAGE);
-	}
-
-	/**
-	 * Método para la extensión 2
-	 */
-	public void reqFuncOpcion2() {
-		String resultado = "resultado2";
-		JOptionPane.showMessageDialog(this, resultado, "Respuesta",
-				JOptionPane.INFORMATION_MESSAGE);
-	}
 
 	/**
 	 * Retorna el tipo de análisis elegido por el usuario.
@@ -658,8 +644,34 @@ public class InterfazPrograma extends JFrame {
 	 * Crea un archivo en word con el reporte generado.
 	 */
 	public void crearReporte() {
-		@SuppressWarnings("unused")
-		Java2Word word = new Java2Word(this);
+		JFileChooser chooser = new JFileChooser("reporte.doc");
+		chooser.addChoosableFileFilter(new FileFilter() {
+			
+			@Override
+			public String getDescription() {
+				return "*.doc";
+			}
+			
+			@Override
+			public boolean accept(File f) {
+				 if (f.isDirectory())
+		          {
+		            return false;
+		          }
+
+		         String s = f.getName();
+
+		        return s.endsWith(".doc");
+			}
+		});
+		int res = chooser.showSaveDialog(this);
+		if(res == JFileChooser.APPROVE_OPTION)
+		{
+			File file = chooser.getSelectedFile();
+			@SuppressWarnings("unused")
+			Java2Word word = new Java2Word(this, file);
+		}
+		
 	}
 
 	/**
