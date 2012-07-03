@@ -85,7 +85,7 @@ public class RStatistics
             re.eval("datos$cluster <- nclust$cluster");
             REXP sumac = re.eval("nclust$withinss");
             double[] ss = sumac.asDoubleArray();
-            
+            vp.setSumaCuadrados(ss);
             for (double d : ss) {
 				System.out.println(d);
 			}
@@ -341,7 +341,7 @@ public class RStatistics
             	
             
             
-            if (true) {
+            if (false) {
         	    // so far we used R as a computational slave without REPL
         	    // now we start the loop, so the user can use the console.
         	    System.out.println("Now the console is yours ... have fun");
