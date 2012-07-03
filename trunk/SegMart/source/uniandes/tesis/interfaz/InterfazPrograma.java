@@ -557,12 +557,12 @@ public class InterfazPrograma extends JFrame {
 	 */
 	public boolean verificarCaract(String path) {
 		LoadingDialog dialog = new LoadingDialog(this);
+		dialog.setAlwaysOnTop(true);
 		dialog.setVisible(true);
 		boolean correct = false;
 		File file = new File(path);
 		System.out.println("Waiting");
 		while (!file.exists()) {
-			System.out.print(".");
 			
 		}
 		try {
@@ -673,6 +673,7 @@ public class InterfazPrograma extends JFrame {
 		if(res == JFileChooser.APPROVE_OPTION)
 		{
 			File file = chooser.getSelectedFile();
+			
 			@SuppressWarnings("unused")
 			Java2Word word = new Java2Word(this, file);
 		}
