@@ -24,7 +24,7 @@ public class Cluster {
 	/**
 	 * 
 	 */
-	ArrayList<String> namGen;
+	String[] namGen;
 	/**
 	 * 
 	 */ 
@@ -32,7 +32,7 @@ public class Cluster {
 	/**
 	 * 
 	 */
-	ArrayList<String> namProb;
+	String[] namProb;
 	/**
 	 * 
 	 */
@@ -48,7 +48,7 @@ public class Cluster {
 	 * @param avgProb
 	 */
 	public Cluster(ArrayList<String> carSig, String[] avgCar, ArrayList<String> dispCar,
-			ArrayList<String> namGen, String[] avgGen, ArrayList<String> namProb, String[] avgProb) {
+			String[] namGen, String[] avgGen, String[] namProb, String[] avgProb) {
 		super();
 		this.carSig = carSig;
 		this.avgCar = avgCar;
@@ -71,7 +71,7 @@ public class Cluster {
 		return dispCar;
 	}
 
-	public ArrayList<String> getNamGen() {
+	public String[] getNamGen() {
 		return namGen;
 	}
 
@@ -79,7 +79,7 @@ public class Cluster {
 		return avgGen;
 	}
 
-	public ArrayList<String> getNamProb() {
+	public String[] getNamProb() {
 		return namProb;
 	}
 
