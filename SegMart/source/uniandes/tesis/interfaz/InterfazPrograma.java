@@ -88,6 +88,11 @@ public class InterfazPrograma extends JFrame {
 	 * Arreglo que contiene las características significativas.
 	 */
 	private ArrayList<String> sigCar;
+	
+	/**
+	 * 
+	 */
+	private double[] sumaCuadrados;
 
 	/**
 	 * Arreglo que contiene el promedio de las características significativas.
@@ -722,6 +727,14 @@ public class InterfazPrograma extends JFrame {
 	 */
 	public void setArrCluesters(ArrayList<Cluster> arrCluesters) {
 		this.arrCluesters = arrCluesters;
+	}
+
+	public double[] getSumaCuadrados() {
+		return sumaCuadrados;
+	}
+
+	public void setSumaCuadrados(double[] sumaCuadrados) {
+		this.sumaCuadrados = sumaCuadrados;
 	}
 
 }
