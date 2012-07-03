@@ -39,37 +39,37 @@ public class InterfazPrograma extends JFrame
 
 
 	/**
-	 * 
+	 * El tipo de análisis a realizar.
 	 */
 	private String tipo_analisis;
 	
 	/**
-	 * 
+	 * El paso en el que va el usuario en la aplicación.
 	 */
 	private String paso;
 	
 	/**
-	 * 
+	 * Ruta del archivo .xls de Información General
 	 */
 	private String rutaInfoGen;
 	
 	/**
-	 * 
+	 * Ruta del archivo .xls de Estilo de Vida
 	 */
 	private String rutaEstilo;
 	
 	/**
-	 * 
+	 * Ruta del archivo .xls de Intención de Compra
 	 */
 	private String rutaIntencion;
 	
 	/**
-	 * 
+	 * Ruta del archivo .xls de características.
 	 */
 	private String rutaCaract;
 	
 	/**
-	 * 
+	 * Instancia de la clase que genera automáticamente archivos .csv
 	 */
 	private Excel2CSV excel2csv;
 	
@@ -299,7 +299,8 @@ public class InterfazPrograma extends JFrame
     				JOptionPane.showMessageDialog(this,"El archivo ingresado no tiene el formato correcto.","Error",JOptionPane.ERROR_MESSAGE);
     		}else if(paso.equalsIgnoreCase("Resumen")){
     			paso = "Resultados";
-    			RStatistics rStatistics = new RStatistics(arguments, this);
+    			@SuppressWarnings("unused")
+				RStatistics rStatistics = new RStatistics(arguments, this);
     			barraProgreso.refrescar();
     			panelInformacion.refrescar();
     			panelBotones.refrescar();
@@ -568,6 +569,7 @@ public class InterfazPrograma extends JFrame
 	 * Crea un archivo en word con el reporte generado.
 	 */
 	public void crearReporte() {
+		@SuppressWarnings("unused")
 		Java2Word word = new Java2Word(this);
 		
 	}
