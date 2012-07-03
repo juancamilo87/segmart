@@ -3,19 +3,8 @@
  */
 package uniandes.tesis.mundo;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
@@ -27,13 +16,28 @@ import uniandes.tesis.interfaz.TextConsole;
 
 
 
+/**
+ * @author Juan Camilo García
+ *
+ */
 public class RStatistics
 {
+	/**
+	 * 
+	 */
 	private InterfazPrograma vp;
+	
+	/**
+	 * 
+	 */
 	private Rengine re;
 	
 	
 	
+	/**
+	 * @param args
+	 * @param nVp
+	 */
 	public RStatistics(String[] args, InterfazPrograma nVp){
 		
 		re=new Rengine(args, false, new TextConsole());
@@ -55,7 +59,8 @@ public class RStatistics
             String rutaIntencion = vp.getRutaIntencion().replace(".xls", ".csv");
             
             String rutaCaract = vp.getRutaCaract().replace(".xls", ".csv");
-            File f = new File("data/");
+            @SuppressWarnings("unused")
+			File f = new File("data/");
             
             
             
@@ -179,7 +184,7 @@ public class RStatistics
             		}
             	}
             	ArrayList<Double> significativas = new ArrayList<Double>();
-            	for(ArrayList m : carSigG){
+            	for(ArrayList<Double> m : carSigG){
             		significativas.add((Double) m.get(0));
             	}
             	
@@ -215,7 +220,7 @@ public class RStatistics
             		}
             	}
             	ArrayList<Double> significativasCa = new ArrayList<Double>();
-            	for(ArrayList m : carSigGC){
+            	for(ArrayList<Double> m : carSigGC){
             		significativasCa.add((Double) m.get(0));
             	}
             	significativasC.add(significativasCa);
