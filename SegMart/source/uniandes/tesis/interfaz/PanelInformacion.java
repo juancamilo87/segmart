@@ -177,6 +177,7 @@ public class PanelInformacion extends JPanel implements ActionListener
             rutaInfoGen.setEditable(false);
             rutaInfoGen.setPreferredSize(new Dimension(200,25));
             rutaInfoGen.setText(ventanaPrincipal.getRutaInfoGen());
+            rutaInfoGen.setToolTipText(ventanaPrincipal.getRutaInfoGen());
             sur.setLayout(new FlowLayout());
             JButton examinar = new JButton("Examinar");
             examinar.setActionCommand("EXAMINAR");
@@ -212,6 +213,7 @@ public class PanelInformacion extends JPanel implements ActionListener
             rutaEstilo.setEditable(false);
             rutaEstilo.setPreferredSize(new Dimension(200,25));
             rutaEstilo.setText(ventanaPrincipal.getRutaEstilo());
+            rutaEstilo.setToolTipText(ventanaPrincipal.getRutaEstilo());
             sur.setLayout(new FlowLayout());
             JButton examinar = new JButton("Examinar");
             examinar.setActionCommand("EXAMINARE");
@@ -244,6 +246,7 @@ public class PanelInformacion extends JPanel implements ActionListener
             rutaIntencion.setEditable(false);
             rutaIntencion.setPreferredSize(new Dimension(200,25));
             rutaIntencion.setText(ventanaPrincipal.getRutaIntencion());
+            rutaIntencion.setToolTipText(ventanaPrincipal.getRutaIntencion());
             sur.setLayout(new FlowLayout());
             JButton examinar = new JButton("Examinar");
             examinar.setActionCommand("EXAMINARI");
@@ -276,6 +279,7 @@ public class PanelInformacion extends JPanel implements ActionListener
             rutaCaract.setEditable(false);
             rutaCaract.setPreferredSize(new Dimension(200,25));
             rutaCaract.setText(ventanaPrincipal.getRutaCaract());
+            rutaCaract.setToolTipText(ventanaPrincipal.getRutaCaract());
             sur.setLayout(new FlowLayout());
             JButton examinar = new JButton("Examinar");
             examinar.setActionCommand("EXAMINARC");
@@ -314,8 +318,10 @@ public class PanelInformacion extends JPanel implements ActionListener
         	JPanel mercado = new JPanel(glm);
         	JLabel lMercado = new JLabel("Información General:");
         	JLabel rMercado = new JLabel(ventanaPrincipal.getRutaInfoGen());
+        	
         	JLabel lEstilo = new JLabel("Estilo de vida:");
         	JLabel rEstilo = new JLabel(ventanaPrincipal.getRutaEstilo());
+        	
         	rMercado.setToolTipText(ventanaPrincipal.getRutaInfoGen());
         	rEstilo.setToolTipText(ventanaPrincipal.getRutaEstilo());
         	mercado.add(lMercado);
