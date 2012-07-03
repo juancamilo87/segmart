@@ -178,9 +178,9 @@ public class Java2Word {
 				document.addEle(tableC3);
 			}
 			document.addEle(BreakLine.times(1).create());
-			document.addEle(Paragraph.with("Después de realizar el análisis por clústeres se encontró que el segmento "+(iMin+1)+" es el más" +
-					"homogéneo. Por esto un producto fácilemente puede suplir las necesidades de todo el clúster y por tanto ser exitoso. Por " +
-					"otro lado el segmento "+ (iMax+1) +" es el más heterogéneo razón por la cual existe la oportunidad de entrar a definir el segemento" +
+			document.addEle(Paragraph.with("Después de realizar el análisis por clústeres se encontró que el segmento "+(iMin+1)+" es el más " +
+					"homogéneo. Por esto un producto fácilemnte puede suplir las necesidades de todo el clúster y por tanto ser exitoso. Por " +
+					"otro lado el segmento "+ (iMax+1) +" es el más heterogéneo razón por la cual existe la oportunidad de entrar a definir el segemento " +
 							"con un fuerte posicionamiento y así lograr una alta participación en el mercado.").withStyle().align(Align.JUSTIFIED).create());
 			reader.close();
 			PrintWriter pw = new PrintWriter(file);
