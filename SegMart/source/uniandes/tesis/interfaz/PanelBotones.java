@@ -13,10 +13,7 @@
 package uniandes.tesis.interfaz;
 
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -25,9 +22,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
 
 /**
  * Este es el panel donde se registra un producto para agregarlo a la lista de la compra
@@ -81,6 +75,8 @@ public class PanelBotones extends JPanel implements ActionListener
     private JButton anterior;
     
     private JButton siguiente;
+    
+    private JButton close;
 
     // -----------------------------------------------------------------
     // Constructores
@@ -107,9 +103,15 @@ public class PanelBotones extends JPanel implements ActionListener
         FlowLayout fl = new FlowLayout();
         fl.setHgap(100);
         JPanel panel = new JPanel(fl);
-        
+        close = new JButton("Cerrar");
+        close.setActionCommand("CERRAR");
+        close.addActionListener(this);
+        close.setVisible(false);
         panel.add(anterior);
         panel.add(siguiente);
+        panel.add(close);
+        
+        
         add(panel);
             }
 
@@ -147,6 +149,7 @@ public class PanelBotones extends JPanel implements ActionListener
     		anterior.setVisible(false);
     		siguiente.setText("Reiniciar Análisis");
     		siguiente.setActionCommand("Reiniciar");
+    		close.setVisible(true);
     	}
     	else
     	{
@@ -181,5 +184,9 @@ public class PanelBotones extends JPanel implements ActionListener
         	ventanaPrincipal.refrescar("Anterior");
         else if(comando.equalsIgnoreCase("Reiniciar"))
         	ventanaPrincipal.refrescar("Reiniciar");
+        else if(comando.equalsIgnoreCase("CERRAR"))
+        {
+        	ventanaPrincipal.dispose();
+        }
     }
 }
