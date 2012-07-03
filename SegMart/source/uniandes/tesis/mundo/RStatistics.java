@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import org.rosuda.JRI.REXP;
+import org.rosuda.JRI.RList;
 import org.rosuda.JRI.Rengine;
 
 import uniandes.tesis.interfaz.InterfazPrograma;
@@ -62,7 +63,8 @@ public class RStatistics
             @SuppressWarnings("unused")
 			File f = new File("data/");
             
-            
+            rutaIntencion = "C:/Users/Cami/Google Drive/Dropbox/Dropbox/Andes/2012/Tesis/n12_almacen/docs/Base Info Intencionmod.csv";
+            rutaCaract= "C:/Users/Cami/Google Drive/Dropbox/Dropbox/Andes/2012/Tesis/n12_almacen/docs/Base Info Caracteristicas.csv";
             
             File inten = new File(rutaIntencion);
             File carac = new File(rutaCaract);
@@ -160,6 +162,8 @@ public class RStatistics
             	re.eval(z);
             	re.eval("md <- manova("+ z+" ~ " + man_car + ")");
             	re.eval("sum_man <- summary.lm(manova("+ z+" ~ " + man_car + "))");
+            	
+            	//datos word
             	double[] revision = re.eval("md$coefficients[,1]").asDoubleArray();
             	
             	ArrayList<Double> orden = new ArrayList<Double>();
@@ -183,11 +187,39 @@ public class RStatistics
             			carSigG.add(temp);
             		}
             	}
-            	ArrayList<Double> significativas = new ArrayList<Double>();
+            	RList nVars = re.eval("caract[0,-1]").asList();
+            	
+            	String[] nombres = nVars.keys();
+            	
+            	ArrayList<String> significativas = new ArrayList<String>();
+            	re.eval("correrMCar <- summary(caract)[4,]");
+            	String correrMCar = "correrMCar[c(";
+            	String correrVCar = "var(caract[c(";
+            	ArrayList<String> vCar = new ArrayList<String>();
             	for(ArrayList<Double> m : carSigG){
-            		significativas.add((Double) m.get(0));
+            		significativas.add(nombres[m.get(0).intValue()-1]);
+            		int temp = m.get(0).intValue()+1;
+            		correrMCar += temp+",";
+            		
+            		
+            		vCar.add(re.eval(correrVCar+temp+")])").asDouble()+"");
+            		
+            	}
+            	correrMCar = correrMCar.substring(0, correrMCar.length()-1);
+            	correrMCar += ")]";
+            	
+            	String[] mCar = re.eval(correrMCar).asStringArray();
+            	for(int i = 0; i<mCar.length;i++)
+            	{
+            		int indice = mCar[i].indexOf(":");
+            		mCar[i] = mCar[i].substring(indice+1).trim();
             	}
             	
+            	
+            	
+            	
+            	
+            	//TODO mandar a la interfaz significativas
             	
             	ArrayList<ArrayList<Double>> significativasC = new ArrayList<ArrayList<Double>>();
             	
@@ -233,7 +265,8 @@ public class RStatistics
                 
                 String rutaEstilo = vp.getRutaEstilo().replace(".xls", ".csv");
                 
-                
+                rutaGeneral = "C:/Users/Cami/Google Drive/Dropbox/Dropbox/Andes/2012/Tesis/n12_almacen/docs/Base Info Generalmod.csv";
+                rutaEstilo = "C:/Users/Cami/Google Drive/Dropbox/Dropbox/Andes/2012/Tesis/n12_almacen/docs/Base Info Estilomod.csv";
                 
                 File general = new File(rutaGeneral);
                 File estilo = new File(rutaEstilo);
@@ -256,7 +289,34 @@ public class RStatistics
             	mEstilo.add(dEst);
             	
             	}
+            	for(int j = 0; j<mGeneral.size();j++){
+            		
+            		for(int i = 0; i<mGeneral.get(j).length;i++){
+            			int indice = mGeneral.get(j)[i].indexOf(":");
+            			mGeneral.get(j)[i] = mGeneral.get(j)[i].substring(indice+1).trim();
+            		}
+            		
+            	}
+            	
+            	for(int j = 0; j<mEstilo.size();j++){
+            		
+            		for(int i = 0; i<mEstilo.get(j).length;i++){
+            			int indice = mEstilo.get(j)[i].indexOf(":");
+            			mEstilo.get(j)[i] = mEstilo.get(j)[i].substring(indice+1).trim();
+            		}
+            		
+            	}
+            	
+            	
+            	
             	vp.setClusters((int)num_clusters);
+            	
+            	
+            	
+            	
+            	
+            	
+            	
             
             
             if (true) {
@@ -282,8 +342,8 @@ public class RStatistics
 	}
 
 	
-/*	
-public static void main(String[] args) throws IOException
+
+public static void main(String[] args) 
     {
 	
 	
@@ -295,7 +355,7 @@ public static void main(String[] args) throws IOException
 	//    (that's the "false" as second argument)
 	// 3) the callbacks are implemented by the TextConsole class above
 	
-    new RStatistics(args);
+    new RStatistics(args, new InterfazPrograma(args));
     
 	
 	        
@@ -307,6 +367,6 @@ public static void main(String[] args) throws IOException
 
 	
 
-*/	
+	
 
 }
