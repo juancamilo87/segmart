@@ -37,9 +37,9 @@ public class Java2Word {
 	 * Inicializa la clase.
 	 * @param nVp a interfaz que muestra la aplicación.
 	 */
-	public Java2Word(InterfazPrograma nVp)	
+	public Java2Word(InterfazPrograma nVp, File file)	
 	{
-		crearDocumento(nVp);
+		crearDocumento(nVp, file);
 	}
 	
 	
@@ -49,15 +49,15 @@ public class Java2Word {
 	 * Crea un documento en word con el contenido generado dinámicamente.
 	 * @param nVp La interfaz que muestra la aplicación. 
 	 */
-	public void crearDocumento(InterfazPrograma nVp)
+	public void crearDocumento(InterfazPrograma nVp, File file)
 	{
 		try {
 			InterfazPrograma vp = nVp;
 			double[] sCs = vp.getSumaCuadrados();
 			double minV = sCs[0];
 			double maxV = sCs[0];
-			int iMax = -1;
-			int iMin = -1;
+			int iMax = 0;
+			int iMin = 0;
 			for (int i = 1; i < sCs.length; i++) {
 				double d = sCs[i];
 				if(d>maxV)
@@ -96,8 +96,6 @@ public class Java2Word {
 				categoria += " "+word;
 			}
 			categoria = categoria.trim();			
-			System.out.println(categoria);
-			File file = new File("docs/reporte.doc");
 			if(file.exists())
 			{
 				file.delete();
@@ -121,7 +119,8 @@ public class Java2Word {
 			String[] tHeaderC2 = reader.readLine().split(",");
 			String pCluster2 = reader.readLine();
 			String[] tHeaderC3 = reader.readLine().split(",");
-			document.addEle(Image.from_WEB_URL("http://postimage.org/image/xmh2lbsdt/").getContent());
+//			document.addEle(Image.from_WEB_URL("http://s16.postimage.org/xmh2lbsdt/img.png"));
+			 System.out.println( Utils.getAppRoot()+ "\\data\\img.png");
 			document.addEle(Heading1.with(heading1).create());
 			document.addEle(Heading2.with(heading2).create());
 			document.addEle(Paragraph.with(p1).withStyle().align(Align.JUSTIFIED).create());
@@ -178,14 +177,15 @@ public class Java2Word {
 				document.addEle(tableC3);
 			}
 			document.addEle(BreakLine.times(1).create());
-			document.addEle(Paragraph.with("Después de realizar el análisis por clústeres se encontró que el segmento "+iMin+" es el más" +
+			document.addEle(Paragraph.with("Después de realizar el análisis por clústeres se encontró que el segmento "+(iMin+1)+" es el más" +
 					"homogéneo. Por esto un producto fácilemente puede suplir las necesidades de todo el clúster y por tanto ser exitoso. Por " +
-					"otro lado el segmento "+ iMax +" es el más heterogéneo razón por la cual existe la oportunidad de entrar a definir el segemento" +
-							"con un fuerte posicionamiento y así lograr una alta participación en el mercado."));
+					"otro lado el segmento "+ (iMax+1) +" es el más heterogéneo razón por la cual existe la oportunidad de entrar a definir el segemento" +
+							"con un fuerte posicionamiento y así lograr una alta participación en el mercado.").withStyle().align(Align.JUSTIFIED).create());
 			reader.close();
 			PrintWriter pw = new PrintWriter(file);
 			pw.write(document.getContent());
 			pw.close();
+			System.out.println("Created");
 		} catch (Exception e) {
 			System.out.println(e.getLocalizedMessage());
 			e.printStackTrace();
