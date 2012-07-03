@@ -4,7 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.PrintWriter;
-import java.util.Scanner;
+
+import uniandes.tesis.interfaz.InterfazPrograma;
 import word.api.interfaces.IDocument;
 import word.w2004.Document2004;
 import word.w2004.Document2004.Encoding;
@@ -18,21 +19,33 @@ import word.w2004.style.ParagraphStyle.Align;
 
 /**
  * http://java2word.blogspot.com/p/all-in-one-example.html
- * @author Julio Mendoza
+ * @author Juan Camilo García
  *
  */
 public class Java2Word {
+	
+	/**
+	 * Inicializa la clase.
+	 * @param nVp a interfaz que muestra la aplicación.
+	 */
+	public Java2Word(InterfazPrograma nVp)	
+	{
+		crearDocumento(nVp);
+	}
 	
 	
 	
 	/**
 	 * http://java2word.blogspot.com/p/all-in-one-example.html
-	 * @param categoria
-	 * @param clusters
+	 * Crea un documento en word con el contenido generado dinámicamente.
+	 * @param nVp La interfaz que muestra la aplicación. 
 	 */
-	public static void ceateDocument(String categoria, int clusters)
+	public void crearDocumento(InterfazPrograma nVp)
 	{
 		try {
+			InterfazPrograma vp = nVp;
+			String categoria = vp.getCategoria();
+			int clusters = vp.getClusters();
 			File texto = new File("data/texto reporte.txt");
 			BufferedReader reader = new BufferedReader(new FileReader(texto));
 			categoria = categoria.trim();
@@ -92,9 +105,7 @@ public class Java2Word {
 		
 	}
 
-	/**
-	 * @param args
-	 */
+	/*
 	public static void main(String[] args) {
 		System.out.println("Categoría:");
 		Scanner in = new Scanner(System.in);
@@ -103,6 +114,6 @@ public class Java2Word {
 		int clusters = Integer.parseInt(in.nextLine());
 		ceateDocument(categoria, clusters);
 		in.close();
-	}
+	}*/
 
 }
