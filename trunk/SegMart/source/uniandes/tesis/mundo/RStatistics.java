@@ -63,8 +63,6 @@ public class RStatistics
             @SuppressWarnings("unused")
 			File f = new File("data/");
             
-            rutaIntencion = "C:/Users/Cami/Google Drive/Dropbox/Dropbox/Andes/2012/Tesis/n12_almacen/docs/Base Info Intencionmod.csv";
-            rutaCaract= "C:/Users/Cami/Google Drive/Dropbox/Dropbox/Andes/2012/Tesis/n12_almacen/docs/Base Info Caracteristicas.csv";
             
             File inten = new File(rutaIntencion);
             File carac = new File(rutaCaract);
@@ -224,12 +222,10 @@ public class RStatistics
             	
             	
             	ArrayList<ArrayList<Double>> significativasC = new ArrayList<ArrayList<Double>>();
-String rutaGeneral= vp.getRutaInfoGen().replace(".xls", ".csv");
+            	String rutaGeneral= vp.getRutaInfoGen().replace(".xls", ".csv");
                 
                 String rutaEstilo = vp.getRutaEstilo().replace(".xls", ".csv");
                 
-                rutaGeneral = "C:/Users/Cami/Google Drive/Dropbox/Dropbox/Andes/2012/Tesis/n12_almacen/docs/Base Info Generalmod.csv";
-                rutaEstilo = "C:/Users/Cami/Google Drive/Dropbox/Dropbox/Andes/2012/Tesis/n12_almacen/docs/Base Info Estilomod.csv";
                 
                 File general = new File(rutaGeneral);
                 File estilo = new File(rutaEstilo);
