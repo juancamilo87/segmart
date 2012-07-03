@@ -363,7 +363,7 @@ public class InterfazPrograma extends JFrame {
 			} else if (paso.equalsIgnoreCase("Resumen")) {
 				paso = "Resultados";
 				JOptionPane.showMessageDialog(this,
-						"Escoja un servidor para descargar las librerías e R.",
+						"Escoja un servidor para descargar las librerías de R.",
 						"Escojer servidor", JOptionPane.INFORMATION_MESSAGE);
 				@SuppressWarnings("unused")
 				RStatistics rStatistics = new RStatistics(arguments, this);
@@ -556,6 +556,8 @@ public class InterfazPrograma extends JFrame {
 	 *         <b>False</b> de lo contrario.
 	 */
 	public boolean verificarCaract(String path) {
+		LoadingDialog dialog = new LoadingDialog(this);
+		dialog.setVisible(true);
 		boolean correct = false;
 		File file = new File(path);
 		System.out.println("Waiting");
@@ -567,6 +569,8 @@ public class InterfazPrograma extends JFrame {
 			System.out.println("Waiting for close");
 			Thread.sleep(10000);
 			System.out.println("Closed");
+			dialog.cerrar();
+			dialog.setVisible(false);
 		} catch (InterruptedException e1) {
 			JOptionPane.showMessageDialog(this, e1.getMessage(), "Error",
 					JOptionPane.ERROR_MESSAGE);
