@@ -92,7 +92,7 @@ public class InterfazPrograma extends JFrame {
 	/**
 	 * Arreglo que contiene el promedio de las características significativas.
 	 */
-	private ArrayList<String> avgCar;
+	private String[] avgCar;
 
 	/**
 	 * Arreglo que contiene la dispersión de las características significativas.
@@ -144,7 +144,6 @@ public class InterfazPrograma extends JFrame {
 		excel2csv = new Excel2CSV();
 		arguments = args;
 		sigCar = new ArrayList<String>();
-		avgCar = new ArrayList<String>();
 		dispCar = new ArrayList<String>();
 	}
 
@@ -568,14 +567,15 @@ public class InterfazPrograma extends JFrame {
 	public boolean verificarCaract(String path) {
 		boolean correct = false;
 		File file = new File(path);
-		String msg = "Waiting";
+		System.out.println("Waiting");
 		while (!file.exists()) {
-			msg += ".";
-			System.out.println(msg);
+			System.out.print(".");
+			
 		}
 		try {
-			Thread.sleep(10000);
 			System.out.println("Waiting for close");
+			Thread.sleep(10000);
+			System.out.println("Closed");
 		} catch (InterruptedException e1) {
 			JOptionPane.showMessageDialog(this, e1.getMessage(), "Error",
 					JOptionPane.ERROR_MESSAGE);
@@ -678,7 +678,7 @@ public class InterfazPrograma extends JFrame {
 	 * Retorna el arreglo de promedio de las características significativas.
 	 * @return the avgCar El arreglo de promedios.
 	 */
-	public ArrayList<String> getAvgCar() {
+	public String[] getAvgCar() {
 		return avgCar;
 	}
 
@@ -687,7 +687,7 @@ public class InterfazPrograma extends JFrame {
 	 * @param avgCar
 	 *            El nuevo arreglo
 	 */
-	public void setAvgCar(ArrayList<String> avgCar) {
+	public void setAvgCar(String[] avgCar) {
 		this.avgCar = avgCar;
 	}
 
