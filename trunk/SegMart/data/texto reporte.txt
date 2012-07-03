@@ -2,6 +2,11 @@ Resultados de Análisis Estadístico sobre los Mercados
 Categoría: 
 El reporte está dividido en análisis antes y después de la segmentacón del mercado. En primer lugar se muestra un resumen global con características que determinan la intención de compra de todo el mercado con sus respuestas y su variabilidad. Luego se muestra un análisis por clúster en donde se muestran las características representativas para este segmento así como su descripción general y de medios de comunicación. Por último se muestra una recomendación del prototipo a ofrecer con el mercado meta.
 Global
-...
-Variable,Media,s
-Por Clúster
+Después del análisis de todo el mercado se encontraron las siguientes características significativas para la intención de compra.
+Característica,Media,Variabilidad
+Analizando únicamente este clúster se encontraron las siguientes características significativas para la intención de compra.
+Característica,Media,Variabilidad
+Las características generales de este clúster se muestra a continuación.
+Característica,Media
+La siguiente información es útil al momento de planear la campaña de mercadeo, pues muestra las medias para acercarse a este segmento.
+Característica,Media

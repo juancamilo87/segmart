@@ -2,19 +2,25 @@ package uniandes.tesis.mundo;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import uniandes.tesis.interfaz.InterfazPrograma;
 import word.api.interfaces.IDocument;
+import word.utils.Utils;
 import word.w2004.Document2004;
 import word.w2004.Document2004.Encoding;
 import word.w2004.elements.BreakLine;
 import word.w2004.elements.Heading1;
 import word.w2004.elements.Heading2;
 import word.w2004.elements.Heading3;
+import word.w2004.elements.Image;
 import word.w2004.elements.Paragraph;
+import word.w2004.elements.ParagraphPiece;
 import word.w2004.elements.Table;
 import word.w2004.elements.tableElements.TableEle;
 import word.w2004.style.ParagraphStyle.Align;
@@ -47,14 +53,34 @@ public class Java2Word {
 	{
 		try {
 			InterfazPrograma vp = nVp;
+			double[] sCs = vp.getSumaCuadrados();
+			double minV = sCs[0];
+			double maxV = sCs[0];
+			int iMax = -1;
+			int iMin = -1;
+			for (int i = 1; i < sCs.length; i++) {
+				double d = sCs[i];
+				if(d>maxV)
+				{
+					maxV = d;
+					iMax = i;
+				}
+				
+			}
+			for (int i = 1; i < sCs.length; i++) {
+				double d = sCs[i];
+				if(d<minV)
+				{
+					minV = d;
+					iMin = i;
+				}
+				
+			}
+			ArrayList<Cluster> arrClusters = vp.getArrCluesters();
 			String categoria = vp.getCategoria();
 			String[] avgCar = vp.getAvgCar();
-			avgCar = (avgCar==null)?new String[1]:vp.getAvgCar();
 			ArrayList<String> sigCar = vp.getSigCar();
 			ArrayList<String> dispCar = vp.getDispCar();
-			avgCar[0] = "asjdajsd";
-			sigCar.add("asdasidjal");
-			dispCar.add("qposadasiod");
 			int clusters = vp.getClusters();
 			File texto = new File("data/texto reporte.txt");
 			BufferedReader reader = new BufferedReader(new FileReader(texto));
@@ -88,8 +114,14 @@ public class Java2Word {
 			String p1 = reader.readLine();
 			String heading3 = reader.readLine();
 			String p2 = reader.readLine();
-			String[] tHeader = reader.readLine().split(",");
-			String heading3_2 = reader.readLine(); 
+			String[] tHeaderG = reader.readLine().split(",");
+			String pCluster = reader.readLine();
+			String[] tHeaderC1 = reader.readLine().split(",");
+			String pCluster1 = reader.readLine();
+			String[] tHeaderC2 = reader.readLine().split(",");
+			String pCluster2 = reader.readLine();
+			String[] tHeaderC3 = reader.readLine().split(",");
+			document.addEle(Image.from_WEB_URL("http://postimage.org/image/xmh2lbsdt/").getContent());
 			document.addEle(Heading1.with(heading1).create());
 			document.addEle(Heading2.with(heading2).create());
 			document.addEle(Paragraph.with(p1).withStyle().align(Align.JUSTIFIED).create());
@@ -97,20 +129,59 @@ public class Java2Word {
 			document.addEle(Heading3.with(heading3).create());
 			document.addEle(Paragraph.with(p2).withStyle().align(Align.JUSTIFIED).create());
 			Table table = new Table();
-			table.addTableEle(TableEle.TH, tHeader[0], tHeader[1], tHeader[2]);			
-			int max = Math.max(avgCar.length, Math.max(dispCar.size(), sigCar.size()));
-			for (int i = 0; i <max; i++) {
+			table.addTableEle(TableEle.TH, tHeaderG[0], tHeaderG[1], tHeaderG[2]);			
+			int min = Math.min(avgCar.length, Math.min(dispCar.size(), sigCar.size()));
+			for (int i = 0; i <min; i++) {
 				table.addTableEle(TableEle.TD, sigCar.get(i),avgCar[i],dispCar.get(i));
 			}
 			document.addEle(table);
-			document.addEle(Heading3.with(heading3_2).create());
-			String p = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi molestie quam nec nisl feugiat imperdiet ut placerat nulla. ";
 			for(int i = 0; i < clusters; i ++)
 			{
-				String h4 = "Clúster "+i;
+				Cluster cluster = arrClusters.get(i);
+				String h4 = "Clúster "+(i+1);
 				document.addEle(Heading3.with(h4).create());
-				document.addEle(Paragraph.with(p).withStyle().align(Align.JUSTIFIED).create());
+				document.addEle(Paragraph.with(pCluster).withStyle().align(Align.JUSTIFIED).create());
+				String[] avgCarC = cluster.getAvgCar();
+				ArrayList<String> sigCarC = cluster.getCarSig();
+				ArrayList<String> dispCarC = cluster.getDispCar();
+				Table tableC1 = new Table();
+				tableC1.addTableEle(TableEle.TH, tHeaderC1[0], tHeaderC1[1], tHeaderC1[2]);
+				min = Math.min(avgCarC.length, Math.min(dispCarC.size(), sigCarC.size()));
+				for (int j = 0; j <min; j++) {
+					tableC1.addTableEle(TableEle.TD, sigCarC.get(j),avgCarC[j],dispCarC.get(j));
+				}
+				document.addEle(BreakLine.times(1).create());
+				document.addEle(tableC1);
+				document.addEle(BreakLine.times(1).create());
+				document.addEle(Paragraph.with(pCluster1).withStyle().align(Align.JUSTIFIED).create());
+				String[] avgGenC = cluster.getAvgGen();
+				String[] carGenC = cluster.getNamGen();
+				Table tableC2 = new Table();
+				tableC2.addTableEle(TableEle.TH, tHeaderC2[0], tHeaderC2[1]);
+				min = Math.min(avgGenC.length, carGenC.length);
+				for (int j = 0; j <min; j++) {
+					tableC2.addTableEle(TableEle.TD, carGenC[j],avgGenC[j]);
+				}
+				document.addEle(BreakLine.times(1).create());
+				document.addEle(tableC2);
+				document.addEle(BreakLine.times(1).create());
+				document.addEle(Paragraph.with(pCluster2).withStyle().align(Align.JUSTIFIED).create());
+				String[] avgProbC = cluster.getAvgProb();
+				String[] carProbC = cluster.getNamProb();
+				Table tableC3 = new Table();
+				tableC3.addTableEle(TableEle.TH, tHeaderC3[0], tHeaderC3[1]);
+				min = Math.min(avgProbC.length, carProbC.length);
+				for (int j = 0; j <min; j++) {
+					tableC3.addTableEle(TableEle.TD, carProbC[j],avgProbC[j]);
+				}
+				document.addEle(BreakLine.times(1).create());
+				document.addEle(tableC3);
 			}
+			document.addEle(BreakLine.times(1).create());
+			document.addEle(Paragraph.with("Después de realizar el análisis por clústeres se encontró que el segmento "+iMin+" es el más" +
+					"homogéneo. Por esto un producto fácilemente puede suplir las necesidades de todo el clúster y por tanto ser exitoso. Por " +
+					"otro lado el segmento "+ iMax +" es el más heterogéneo razón por la cual existe la oportunidad de entrar a definir el segemento" +
+							"con un fuerte posicionamiento y así lograr una alta participación en el mercado."));
 			reader.close();
 			PrintWriter pw = new PrintWriter(file);
 			pw.write(document.getContent());
