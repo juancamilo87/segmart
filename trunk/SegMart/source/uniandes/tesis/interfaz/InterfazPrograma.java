@@ -571,6 +571,7 @@ public class InterfazPrograma extends JFrame {
 			System.out.println("Closed");
 			dialog.cerrar();
 			dialog.setVisible(false);
+			setEnabled(true);
 		} catch (InterruptedException e1) {
 			JOptionPane.showMessageDialog(this, e1.getMessage(), "Error",
 					JOptionPane.ERROR_MESSAGE);
