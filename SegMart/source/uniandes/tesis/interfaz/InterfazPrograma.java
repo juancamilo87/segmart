@@ -1,28 +1,12 @@
-/**
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * $Id$
- * Universidad de los Andes (Bogotá - Colombia)
- * Departamento de Ingeniería de Sistemas y Computación 
- * Licenciado bajo el esquema Academic Free License versión 2.1
- *
- * Proyecto Cupi2 (http://cupi2.uniandes.edu.co)
- * Ejercicio: n12_almacen
- * Autor: Mario Sánchez - 06-nov-2005
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- */
-
 package uniandes.tesis.interfaz;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import javax.annotation.PostConstruct;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -32,6 +16,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 import org.apache.poi.ss.usermodel.Sheet;
 
 import uniandes.tesis.mundo.Excel2CSV;
+import uniandes.tesis.mundo.Java2Word;
+import uniandes.tesis.mundo.RStatistics;
 
 
 
@@ -45,23 +31,62 @@ public class InterfazPrograma extends JFrame
     // -----------------------------------------------------------------
 
     /**
-     * Clase principal del mundo
-     */
-//    private Datos datos;
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	
+
+
+	/**
+	 * 
+	 */
 	private String tipo_analisis;
 	
+	/**
+	 * 
+	 */
 	private String paso;
 	
+	/**
+	 * 
+	 */
 	private String rutaInfoGen;
 	
+	/**
+	 * 
+	 */
 	private String rutaEstilo;
 	
+	/**
+	 * 
+	 */
 	private String rutaIntencion;
 	
+	/**
+	 * 
+	 */
 	private String rutaCaract;
 	
+	/**
+	 * 
+	 */
 	private Excel2CSV excel2csv;
+	
+	/**
+	 * 
+	 */
+	private String[] arguments;
+	
+	/**
+	 * 
+	 */
+	private String categoria;
+	
+	/**
+	 * 
+	 */
+	private int clusters;
 
     // -----------------------------------------------------------------
     // Atributos de la interfaz
@@ -96,19 +121,16 @@ public class InterfazPrograma extends JFrame
     /**
      * Descripción <br>
      * <b>post: </b> Descripción
+     * @param args 
      * @param archivo El archivo de propiedades con la configuración para el punto de venta
-     * @throws Exception Se lanza esta excepción si hay problemas cargando el archivo de propiedades
      */
-    public InterfazPrograma(  )
+    public InterfazPrograma( String[] args )
     {
-        // Crea la clase principal
-//    	datos = new Datos();
     	paso = "Tipo de Analisis";
     	tipo_analisis="";
         construirForma( );
         excel2csv = new Excel2CSV();
-//        construirMenu( );
-//        conectar( );
+        arguments = args;
     }
 
     // -----------------------------------------------------------------
@@ -122,7 +144,6 @@ public class InterfazPrograma extends JFrame
      */
     private void construirForma( )
     {
-        // organizar el panel principal
     	rutaInfoGen="";
     	rutaIntencion="";
     	rutaEstilo="";
@@ -148,16 +169,12 @@ public class InterfazPrograma extends JFrame
         try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
@@ -174,15 +191,25 @@ public class InterfazPrograma extends JFrame
         super.dispose( );
     }
     
+    /**
+     * @param tipo
+     */
     public void cambiarTipoAnalisis(String tipo){
     	panelBotones.cambiarListo();
     	tipo_analisis=tipo;
     }
     
+    /**
+     * @return paso. Paso en el que va el proceso de ejecución.
+     */
     public String darPaso(){
     	return paso;
     }
     
+    /**
+     * @param ruta Ruta del archivo a verificar.
+     * @return correct <b>True</b> si el archivo está en formato correcto, <b>False</b> de lo contrario.
+     */
     public boolean verificarArchivo(String ruta){
     	boolean correct = false;
     	Sheet sheet;
@@ -195,6 +222,10 @@ public class InterfazPrograma extends JFrame
     	return correct;
     }
     
+    /**
+     * Actualiza la interfaz dependiendo de la acción tomada por el usuario. 
+     * @param accion 
+     */
     public void refrescar(String accion){
     	
     	if(accion.equalsIgnoreCase("Siguiente"))
@@ -244,10 +275,9 @@ public class InterfazPrograma extends JFrame
     				JOptionPane.showMessageDialog(this,"Debe seleccionar un archivo.","Error",JOptionPane.ERROR_MESSAGE);
     			else{
     				try {
+    					categoria = JOptionPane.showInputDialog(this, "Ingresar la categoría:", "Categoría", JOptionPane.QUESTION_MESSAGE);
     					File f1 = new File("./docs/Base Info Caracteristicas.xls");
-    					String a = f1.getCanonicalPath();
     					File f2 = new File("./data/");
-    					String b = f2.getCanonicalPath()+ "\\";
     					System.out.println(rutaCaract.replace(".xls", ".csv"));
     					File file = new File(rutaCaract.replace(".xls", ".csv"));
     					file.delete();
@@ -256,7 +286,6 @@ public class InterfazPrograma extends JFrame
 						
 
     				} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} 
     			}
@@ -270,6 +299,7 @@ public class InterfazPrograma extends JFrame
     				JOptionPane.showMessageDialog(this,"El archivo ingresado no tiene el formato correcto.","Error",JOptionPane.ERROR_MESSAGE);
     		}else if(paso.equalsIgnoreCase("Resumen")){
     			paso = "Resultados";
+    			RStatistics rStatistics = new RStatistics(arguments, this);
     			barraProgreso.refrescar();
     			panelInformacion.refrescar();
     			panelBotones.refrescar();
@@ -324,12 +354,6 @@ public class InterfazPrograma extends JFrame
     }
     
 
-    
-
-    // -----------------------------------------------------------------
-    // Puntos de Extensión
-    // -----------------------------------------------------------------
-
     /**
      * Método para la extensión 1
      */
@@ -349,15 +373,11 @@ public class InterfazPrograma extends JFrame
     }
 
     
-    @PostConstruct
-    public void refrescarProgreso() {
-    	barraProgreso.refrescar();
-        // populates the movie cache upon initialization...
-    }
-    public void progresoRefescar(){
-    	paso = "Tipo de Analisis";
-    	barraProgreso.refrescar();
-    }
+   
+    /**
+     * Retorna el tipo de análisis elegido por el usuario.
+     * @return tipo_analisis El tipo de análisis elegido por el usuario.
+     */
     public String darTipo(){
     	return tipo_analisis;
     }
@@ -372,29 +392,30 @@ public class InterfazPrograma extends JFrame
     public static void main( String[] args )
     {
     	
-    	InterfazPrograma interfaz = new InterfazPrograma();
+    	InterfazPrograma interfaz = new InterfazPrograma(args);
     	interfaz.setVisible( true );
     	interfaz.setResizable(false);
-    	
-//        try
-//        {
-//            InterfazPrograma interfaz = new InterfazPrograma( "./data/puntoDeVenta.properties" );
-//            
-//        }
-//        catch( Exception e )
-//        {
-//            System.out.println( e.getMessage( ) );
-//        }
     }
 
+	/**
+	 * Retorna la ruta del archivo .xls de información general.
+	 * @return rutaInfoGen La ruta del archivo .xls de información general.
+	 */
 	public String getRutaInfoGen() {
 		return rutaInfoGen;
 	}
 
+	/**
+	 * Cambia la ruta del archivo .xls de información general.
+	 * @param rutaInfoGen La nueva ruta del archivo .xls de información general.
+	 */
 	public void setRutaInfoGen(String rutaInfoGen) {
 		this.rutaInfoGen = rutaInfoGen;
 	}
 	
+	/**
+	 * Limpia la interfaz para reiniciar la aplicaicón.
+	 */
 	public void limpiar(){
 		tipo_analisis="";
 		paso="";
@@ -407,26 +428,50 @@ public class InterfazPrograma extends JFrame
 		
 	}
 
+	/**
+	 * Retorna la ruta del archivo .xls de esilo de vida.
+	 * @return rutaEstilo La ruta del archivo .xls de esilo de vida.
+	 */
 	public String getRutaEstilo() {
 		return rutaEstilo;
 	}
 
+	/**
+	 * Cambia la ruta del archvo .xls de estilo de vida.
+	 * @param rutaEstilo La nueva ruta del archivo .xls de esilo de vida.
+	 */
 	public void setRutaEstilo(String rutaEstilo) {
 		this.rutaEstilo = rutaEstilo;
 	}
 
+	/**
+	 * Retorna la ruta del archivo .xls de intención de compra.
+	 * @return rutaIntencion La ruta del archivo .xls de intención de compra.
+	 */
 	public String getRutaIntencion() {
 		return rutaIntencion;
 	}
 
+	/**
+	 * Cambia la ruta del archivo .xls de intención de compra.
+	 * @param rutaIntencion La ruta del archivo .xls de intención de compra.
+	 */
 	public void setRutaIntencion(String rutaIntencion) {
 		this.rutaIntencion = rutaIntencion;
 	}
 
+	/**
+	 * Retorna la ruta del archivo .xls de características.
+	 * @return rutaCaract La ruta del archivo .xls de características.
+	 */
 	public String getRutaCaract() {
 		return rutaCaract;
 	}
 
+	/**
+	 * Cambia la ruta del archivo .xls de características.
+	 * @param rutaCaract La ruta del archivo .xls de características.
+	 */
 	public void setRutaCaract(String rutaCaract) {
 		this.rutaCaract = rutaCaract;
 	}
@@ -448,8 +493,8 @@ public class InterfazPrograma extends JFrame
 	}
 	
 	/**
-	 * @param path
-	 * @return 
+	 * @param path La ruta del archivo .xls de caracteríticas. 
+	 * @return correct <b>True</b> si el achivo está en formato correcto <b>False</b> de lo contrario.
 	 */
 	public boolean verificarCaract(String path)
 	{
@@ -462,6 +507,7 @@ public class InterfazPrograma extends JFrame
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 			String code = reader.readLine();
+			reader.close();
 			if(code.equalsIgnoreCase("Error"))
 			{
 				throw new Exception("Los archivos de intención de compra y caracteristicas de producto no coinciden.");
@@ -478,10 +524,53 @@ public class InterfazPrograma extends JFrame
 	}
 	
 	/**
-	 * @return
+	 * Retorna el máximo de columnas de un archivo .csv.
+	 * @return <code>excel2csv.getMaxCols()</code> El máximo de columnas del archivo .csv procesado en el momento.
 	 */
 	public double getCols()
 	{
 		return excel2csv.getMaxCols();
 	}
+
+	/**
+	 * Retorna la categoría ingresada por el usuario a través de la aplicación.
+	 * @return the categoria La categoría ingresada por el usuario
+	 */
+	public String getCategoria() {
+		return categoria;
+	}
+
+	/**
+	 * Cambia la categoría por la ingresada por el usuario.
+	 * @param categoria La categoría a cambiar.
+	 */
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
+	/**
+	 * Retorna los clústeres encontrados al hacer el análisis de los archivos con R.
+	 * @return Los clústeres encontrados.
+	 */
+	public int getClusters() {
+		return clusters;
+	}
+
+	/**
+	 * Cambia la cantidad de clústeres encontrados.
+	 * @param clusters La nueva cantidad de clústeres a encontrar.
+	 */
+	public void setClusters(int clusters) {
+		this.clusters = clusters;
+	}
+
+	/**
+	 * Crea un archivo en word con el reporte generado.
+	 */
+	public void crearReporte() {
+		Java2Word word = new Java2Word(this);
+		
+	}
+
+	
 }

@@ -24,6 +24,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+
+import javax.swing.Action;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -45,7 +47,9 @@ public class PanelInformacion extends JPanel implements ActionListener
     // Constantes
     // -----------------------------------------------------------------
 
-    /**
+    private static final String WORD = "Word";
+
+	/**
      * El comando para el botón 1
      */
     private final String OPCION_1 = "opcion 1";
@@ -354,11 +358,10 @@ public class PanelInformacion extends JPanel implements ActionListener
         	
         	JLabel info = new JLabel("Análisis exitoso");
         	JButton word = new JButton("Crear reporte en Word");
-        	JButton excel = new JButton("Crear reporte en Excel");
-        	
+        	word.setActionCommand(WORD);
+        	word.addActionListener(this);
         	informacion1.add(info);
         	informacion2.add(word);
-        	informacion3.add(excel);
         	informacion.setPreferredSize(new Dimension(350,120));
         	informacion.add(informacion1);
         	informacion.add(informacion2);
@@ -565,6 +568,10 @@ public class PanelInformacion extends JPanel implements ActionListener
         		rutaCaract.setText(ventanaPrincipal.getRutaCaract());
         		
         	}
+        }
+        else if (comando.equalsIgnoreCase(WORD))
+        {
+        	ventanaPrincipal.crearReporte();
         }
         
         
