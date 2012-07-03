@@ -19,17 +19,24 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 /**
+ * Clase que genera automáticamente archivos .csv a partir de la lectura de archivos .xls
  * @author Juan Camilo Garc'ia
  * 
  */
 public class Excel2CSV {
 	
+	/**
+	 * Número total de filas del archivo .xls
+	 */
 	private double maxRows;
 	
+	/**
+	 * Número total de columnas del archivo .xls
+	 */
 	private double maxCols;
 
 	/**
-	 * 
+	 * Crea la clase.
 	 */
 	public Excel2CSV() {
 		maxRows = 0;
@@ -37,8 +44,9 @@ public class Excel2CSV {
 	}
 
 	/**
-	 * @param path
-	 * @throws Exception
+	 * Crea un archivo .csv a paritr de un archivo .xls con un formato espec'ifico para su lectura.
+	 * @param path Ruta del archivo .xls del cuál se va a leer información.
+	 * @throws Exception Si hay problemas de lectura del archivo.
 	 */
 	public void echoAsCSV(String path) throws Exception {
 		Row row = null;
@@ -115,9 +123,10 @@ public class Excel2CSV {
 	}
 
 	/**
-	 * @param sheet
-	 * @return
-	 * @throws Exception
+	 * Verifica si el formato del archivo .xls corresponde con el que se requiere para general el .csv.
+	 * @param sheet La hoja del archivo qeu se va a leer.
+	 * @return correcto <b>True</b> Si el archivo está en el formato indicado <b>False</b> de lo contrario.
+	 * @throws Exception Si se detecta que el formato es inválido.
 	 */
 	public boolean verificarFormatoArchivo(Sheet sheet) throws Exception {
 		boolean correcto = false;
@@ -150,9 +159,10 @@ public class Excel2CSV {
 	}
 
 	/**
-	 * @param path
-	 * @return
-	 * @throws Exception
+	 * Retorna la hoja del documento que se lee.
+	 * @param path Ruta del archivo en excel del que se quiere retornar la hoja que contiene la información. 
+	 * @return sheet La hoja del archivo.
+	 * @throws Exception Si hay problemas de lectura del archivo.
 	 */
 	public Sheet returnSheet(String path) throws Exception {
 		Sheet sheet;
@@ -171,15 +181,11 @@ public class Excel2CSV {
 	}
 
 	/**
-	 * @param ruta
+	 * Genera una copia del archivo cuya ruta entra como parámetro, agregándole una "a"al final.
+	 * @param ruta Ruta del archivo del cual se va a generar la copia.
 	 */
-	public void copyFile(String ruta) {
+	private void copyFile(String ruta) {
 		File fuente = new File(ruta);
-		String nombre = fuente.getName().substring(0,
-				fuente.getName().lastIndexOf("."));
-		String ext = fuente.getName().substring(
-				fuente.getName().lastIndexOf("."));
-		int index = ruta.lastIndexOf("/");
 		File destino = new File(ruta+"a");
 		if (!destino.exists()) {
 			try {
@@ -199,7 +205,6 @@ public class Excel2CSV {
 
 			destination.transferFrom(source, 0, source.size());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 
@@ -207,7 +212,6 @@ public class Excel2CSV {
 				try {
 					source.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -215,7 +219,6 @@ public class Excel2CSV {
 				try {
 					destination.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -224,21 +227,16 @@ public class Excel2CSV {
 	}
 	
 	/**
-	 * @param ruta
+	 * Gemnera una copia del archivo original quitándole una a al final de la ruta.
+	 * @param ruta Ruta del archivo del cual se va a generar la copia.
 	 */
-	public void copyFileSinA(String ruta) {
+	private void copyFileSinA(String ruta) {
 		File fuente = new File(ruta);
-		String nombre = fuente.getName().substring(0,
-				fuente.getName().lastIndexOf("."));
-		String ext = fuente.getName().substring(
-				fuente.getName().lastIndexOf("."));
-		int index = ruta.lastIndexOf("/");
 		File destino = new File(ruta.substring(0, ruta.lastIndexOf("a")));
 		if (!destino.exists()) {
 			try {
 				destino.createNewFile();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -252,7 +250,6 @@ public class Excel2CSV {
 
 			destination.transferFrom(source, 0, source.size());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 
@@ -260,7 +257,6 @@ public class Excel2CSV {
 				try {
 					source.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -268,7 +264,6 @@ public class Excel2CSV {
 				try {
 					destination.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -278,31 +273,19 @@ public class Excel2CSV {
 	}
 
 	/**
-	 * @return
+	 * Retorna la cantidad de filas del archivo a leer.
+	 * @return maxRows Cantidad de filas del archivo.
 	 */
 	public double getMaxRows() {
 		return maxRows;
 	}
 
 	/**
-	 * @param maxRows
-	 */
-	public void setMaxRows(double maxRows) {
-		this.maxRows = maxRows;
-	}
-
-	/**
-	 * @return
+	 * Retorna la cantidad de columnas del archivo a leer.
+	 * @return maxCols Cantidad de columnas del archivo.
 	 */
 	public double getMaxCols() {
 		return maxCols;
-	}
-
-	/**
-	 * @param maxCols
-	 */
-	public void setMaxCols(double maxCols) {
-		this.maxCols = maxCols;
 	}
 
 	// public static void main(String[] args) {
