@@ -127,7 +127,7 @@ public class Java2Word {
 			document.addEle(BreakLine.times(1).create());
 			document.addEle(Heading3.with(heading3).create());
 			document.addEle(Paragraph.with(p2).withStyle().align(Align.JUSTIFIED).create());
-			document.addEle(Paragraph.with("Según la segmentaión del mercado se encontró que el número de clústeres óptimo es "+clusters).create());
+			document.addEle(Paragraph.with("Según la segmentaión del mercado se encontró que el número de clústeres óptimo es "+clusters+".").create());
 			Table table = new Table();
 			table.addTableEle(TableEle.TH, tHeaderG[0], tHeaderG[1], tHeaderG[2]);			
 			int min = Math.min(avgCar.length, Math.min(dispCar.size(), sigCar.size()));
