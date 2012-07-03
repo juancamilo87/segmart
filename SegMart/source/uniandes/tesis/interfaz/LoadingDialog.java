@@ -28,6 +28,7 @@ public class LoadingDialog extends JDialog{
 	
 	public LoadingDialog(InterfazPrograma nVp)
 	{
+		super();
 		vp = nVp;
 		setTitle("Cargando");		
 		setEnabled(false);
