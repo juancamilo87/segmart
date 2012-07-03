@@ -1,40 +1,42 @@
 package uniandes.tesis.mundo;
 
+import java.util.ArrayList;
+
 /**
  * @author Cami
- *
+ * 
  */
 public class Cluster {
-	
+
 	/**
 	 * 
 	 */
-	String[] carSig;
+	ArrayList<String> carSig;
 	/**
 	 * 
 	 */
-	double[] avgCar;
+	ArrayList<Double> avgCar;
 	/**
 	 * 
 	 */
-	double[] dispCar;
+	ArrayList<Double> dispCar;
 	/**
 	 * 
 	 */
-	String[] namGen;
+	ArrayList<String> namGen;
 	/**
 	 * 
 	 */
-	double[] avgGen;
+	ArrayList<Double> avgGen;
 	/**
 	 * 
 	 */
-	String[] namProb;
+	ArrayList<String> namProb;
 	/**
 	 * 
 	 */
-	double[] avgProb;
-	
+	ArrayList<Double> avgProb;
+
 	/**
 	 * @param carSig
 	 * @param avgCar
@@ -44,8 +46,8 @@ public class Cluster {
 	 * @param namProb
 	 * @param avgProb
 	 */
-	public Cluster(String[] carSig, double[] avgCar, double[] dispCar,
-			String[] namGen, double[] avgGen, String[] namProb, double[] avgProb) {
+	public Cluster(ArrayList<String> carSig, ArrayList<Double> avgCar, ArrayList<Double> dispCar,
+			ArrayList<String> namGen, ArrayList<Double> avgGen, ArrayList<String> namProb, ArrayList<Double> avgProb) {
 		super();
 		this.carSig = carSig;
 		this.avgCar = avgCar;
@@ -56,34 +58,34 @@ public class Cluster {
 		this.avgProb = avgProb;
 	}
 
-	public String[] getCarSig() {
+	public ArrayList<String> getCarSig() {
 		return carSig;
 	}
 
-	public double[] getAvgCar() {
+	public ArrayList<Double> getAvgCar() {
 		return avgCar;
 	}
 
-	public double[] getDispCar() {
+	public ArrayList<Double> getDispCar() {
 		return dispCar;
 	}
 
-	public String[] getNamGen() {
+	public ArrayList<String> getNamGen() {
 		return namGen;
 	}
 
-	public double[] getAvgGen() {
+	public ArrayList<Double> getAvgGen() {
 		return avgGen;
 	}
 
-	public String[] getNamProb() {
+	public ArrayList<String> getNamProb() {
 		return namProb;
 	}
 
-	public double[] getAvgProb() {
+	public ArrayList<Double> getAvgProb() {
 		return avgProb;
 	}
-	
+
 	
 
 }
