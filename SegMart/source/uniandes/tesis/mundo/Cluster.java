@@ -7,6 +7,7 @@ import java.util.ArrayList;
  * 
  */
 public class Cluster {
+	
 
 	/**
 	 * 
@@ -15,7 +16,7 @@ public class Cluster {
 	/**
 	 * 
 	 */
-	ArrayList<String> avgCar;
+	String[] avgCar;
 	/**
 	 * 
 	 */
@@ -27,7 +28,7 @@ public class Cluster {
 	/**
 	 * 
 	 */ 
-	ArrayList<String> avgGen;
+	String[] avgGen;
 	/**
 	 * 
 	 */
@@ -46,8 +47,8 @@ public class Cluster {
 	 * @param namProb
 	 * @param avgProb
 	 */
-	public Cluster(ArrayList<String> carSig, ArrayList<String> avgCar, ArrayList<String> dispCar,
-			ArrayList<String> namGen, ArrayList<String> avgGen, ArrayList<String> namProb, String[] avgProb) {
+	public Cluster(ArrayList<String> carSig, String[] avgCar, ArrayList<String> dispCar,
+			ArrayList<String> namGen, String[] avgGen, ArrayList<String> namProb, String[] avgProb) {
 		super();
 		this.carSig = carSig;
 		this.avgCar = avgCar;
@@ -62,7 +63,7 @@ public class Cluster {
 		return carSig;
 	}
 
-	public ArrayList<String> getAvgCar() {
+	public String[] getAvgCar() {
 		return avgCar;
 	}
 
@@ -74,7 +75,7 @@ public class Cluster {
 		return namGen;
 	}
 
-	public ArrayList<String> getAvgGen() {
+	public String[] getAvgGen() {
 		return avgGen;
 	}
 
