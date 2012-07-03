@@ -34,7 +34,7 @@ public class RStatistics
 	
 	
 	
-	public RStatistics(String[] args){
+	public RStatistics(String[] args, InterfazPrograma nVp){
 		
 		re=new Rengine(args, false, new TextConsole());
 		
@@ -47,7 +47,7 @@ public class RStatistics
 	        return;
 	        
 	    }
-		vp = new InterfazPrograma();
+		vp = nVp;
 		
 		try{
             
@@ -57,8 +57,6 @@ public class RStatistics
             String rutaCaract = vp.getRutaCaract().replace(".xls", ".csv");
             File f = new File("data/");
             
-            rutaIntencion = "C:/Users/Cami/Google Drive/Dropbox/Dropbox/Andes/2012/Tesis/n12_almacen/docs/Base Info Intencionmod.csv";
-            rutaCaract = "C:/Users/Cami/Google Drive/Dropbox/Dropbox/Andes/2012/Tesis/n12_almacen/docs/Base Info Caracteristicas.csv";
             
             
             File inten = new File(rutaIntencion);
@@ -231,9 +229,6 @@ public class RStatistics
                 String rutaEstilo = vp.getRutaEstilo().replace(".xls", ".csv");
                 
                 
-                rutaGeneral = "C:/Users/Cami/Google Drive/Dropbox/Dropbox/Andes/2012/Tesis/n12_almacen/docs/Base Info Generalmod.csv";
-                rutaEstilo = "C:/Users/Cami/Google Drive/Dropbox/Dropbox/Andes/2012/Tesis/n12_almacen/docs/Base Info Estilomod.csv";
-                
                 
                 File general = new File(rutaGeneral);
                 File estilo = new File(rutaEstilo);
@@ -256,8 +251,7 @@ public class RStatistics
             	mEstilo.add(dEst);
             	
             	}
-                int a = 1;
-       
+            	vp.setClusters((int)num_clusters);
             
             
             if (true) {
@@ -283,7 +277,7 @@ public class RStatistics
 	}
 
 	
-	
+/*	
 public static void main(String[] args) throws IOException
     {
 	
@@ -308,6 +302,6 @@ public static void main(String[] args) throws IOException
 
 	
 
-	
+*/	
 
 }
