@@ -202,7 +202,7 @@ public class RStatistics
             		correrMCar += temp+",";
             		
             		
-            		vCar.add(re.eval(correrVCar+temp+")])").asDouble()+"");
+            		vCar.add(Math.sqrt(re.eval(correrVCar+temp+")])").asDouble())+"");
             		
             	}
             	correrMCar = correrMCar.substring(0, correrMCar.length()-1);
@@ -214,15 +214,36 @@ public class RStatistics
             		int indice = mCar[i].indexOf(":");
             		mCar[i] = mCar[i].substring(indice+1).trim();
             	}
+            	vp.setAvgCar(mCar);
+            	vp.setSigCar(significativas);
+            	vp.setDispCar(vCar);
             	
             	
             	
             	
             	
-            	//TODO mandar a la interfaz significativas
             	
             	ArrayList<ArrayList<Double>> significativasC = new ArrayList<ArrayList<Double>>();
+String rutaGeneral= vp.getRutaInfoGen().replace(".xls", ".csv");
+                
+                String rutaEstilo = vp.getRutaEstilo().replace(".xls", ".csv");
+                
+                rutaGeneral = "C:/Users/Cami/Google Drive/Dropbox/Dropbox/Andes/2012/Tesis/n12_almacen/docs/Base Info Generalmod.csv";
+                rutaEstilo = "C:/Users/Cami/Google Drive/Dropbox/Dropbox/Andes/2012/Tesis/n12_almacen/docs/Base Info Estilomod.csv";
+                
+                File general = new File(rutaGeneral);
+                File estilo = new File(rutaEstilo);
+                
+                re.eval("general = read.csv(\""+general.getCanonicalPath().replace("\\","/")+ "\")");
+                re.eval("estilo = read.csv(\""+estilo.getCanonicalPath().replace("\\","/")+ "\")");
             	
+            	re.eval("generals <- split(general,datos$clust)");
+            	re.eval("estilos <- split(estilo,datos$clust)");
+            	
+            	
+            	ArrayList<String[]> mGeneral = new ArrayList<String[]>();
+            	ArrayList<String[]> mEstilo = new ArrayList<String[]>();
+            	ArrayList<Cluster> clustersa = new ArrayList<Cluster>();
             	//Ahora por cluster
             	for(int j = 1; j<=num_clusters;j++){
            		 
@@ -251,67 +272,72 @@ public class RStatistics
             			carSigGC.add(temp);
             		}
             	}
+            	
+            	ArrayList<String> significativasClu = new ArrayList<String>();
+            	re.eval("correrMCar"+j+" <- summary(segc$'"+j+"')[4,]");
+            	String correrMCarClu = "correrMCar"+j+"[c(";
+            	String correrVCarClu = "var(segc$'"+j+"'[c(";
+            	ArrayList<String> vCarClu = new ArrayList<String>();
+            	for(ArrayList<Double> m : carSigGC){
+            		significativasClu.add(nombres[m.get(0).intValue()-1]);
+            		int temp = m.get(0).intValue()+1;
+            		correrMCarClu += temp+",";
+            		
+            		
+            		vCarClu.add(Math.sqrt(re.eval(correrVCarClu+temp+")])").asDouble())+"");
+            		
+            	}
+            	correrMCarClu = correrMCarClu.substring(0, correrMCarClu.length()-1);
+            	correrMCarClu += ")]";
+            	
+            	String[] mCarClu = re.eval(correrMCarClu).asStringArray();
+            	for(int i = 0; i<mCarClu.length;i++)
+            	{
+            		int indice = mCarClu[i].indexOf(":");
+            		mCarClu[i] = mCarClu[i].substring(indice+1).trim();
+            	}
+            	
+            	
+            	
             	ArrayList<Double> significativasCa = new ArrayList<Double>();
             	for(ArrayList<Double> m : carSigGC){
             		significativasCa.add((Double) m.get(0));
             	}
             	significativasC.add(significativasCa);
             	
-            	}
+            	
+            	
+            	
             	
             	//Información General por Cluster
             	
-            	String rutaGeneral= vp.getRutaInfoGen().replace(".xls", ".csv");
-                
-                String rutaEstilo = vp.getRutaEstilo().replace(".xls", ".csv");
-                
-                rutaGeneral = "C:/Users/Cami/Google Drive/Dropbox/Dropbox/Andes/2012/Tesis/n12_almacen/docs/Base Info Generalmod.csv";
-                rutaEstilo = "C:/Users/Cami/Google Drive/Dropbox/Dropbox/Andes/2012/Tesis/n12_almacen/docs/Base Info Estilomod.csv";
-                
-                File general = new File(rutaGeneral);
-                File estilo = new File(rutaEstilo);
-                
-                re.eval("general = read.csv(\""+general.getCanonicalPath().replace("\\","/")+ "\")");
-                re.eval("estilo = read.csv(\""+estilo.getCanonicalPath().replace("\\","/")+ "\")");
-            	
-            	re.eval("generals <- split(general,datos$clust)");
-            	re.eval("estilos <- split(estilo,datos$clust)");
             	
             	
-            	ArrayList<String[]> mGeneral = new ArrayList<String[]>();
-            	ArrayList<String[]> mEstilo = new ArrayList<String[]>();
-            	
-            	for(int i = 1; i<=num_clusters;i++){
-            	String[] dGene = re.eval("summary(generals$'"+ i + "')[4,-1]").asStringArray();
-            	String[] dEst = re.eval("summary(estilos$'"+ i + "')[4,-1]").asStringArray();
+            	String[] dGene = re.eval("summary(generals$'"+ j + "')[4,-1]").asStringArray();
+            	String[] dEst = re.eval("summary(estilos$'"+ j + "')[4,-1]").asStringArray();
             	
             	mGeneral.add(dGene);
             	mEstilo.add(dEst);
             	
-            	}
-            	for(int j = 0; j<mGeneral.size();j++){
-            		
-            		for(int i = 0; i<mGeneral.get(j).length;i++){
-            			int indice = mGeneral.get(j)[i].indexOf(":");
-            			mGeneral.get(j)[i] = mGeneral.get(j)[i].substring(indice+1).trim();
-            		}
-            		
-            	}
+            	for(int i = 0; i<dGene.length;i++){
+        			int indice = dGene[i].indexOf(":");
+        			dGene[i] = dGene[i].substring(indice+1).trim();
+        		}
+            	for(int i = 0; i<dEst.length;i++){
+        			int indice = dEst[i].indexOf(":");
+        			dEst[i] = dEst[i].substring(indice+1).trim();
+        		}
             	
-            	for(int j = 0; j<mEstilo.size();j++){
-            		
-            		for(int i = 0; i<mEstilo.get(j).length;i++){
-            			int indice = mEstilo.get(j)[i].indexOf(":");
-            			mEstilo.get(j)[i] = mEstilo.get(j)[i].substring(indice+1).trim();
-            		}
-            		
+            	String[] nomGen = re.eval("general[0,-1]").asList().keys();
+            	String[] nomEst = re.eval("estilo[0,-1]").asList().keys();
+            	
+
+				clustersa.add(new Cluster(significativasClu,mCarClu,vCarClu,nomGen,dGene,nomEst,dEst));				
             	}
-            	
-            	
             	
             	vp.setClusters((int)num_clusters);
             	
-            	
+            	vp.setArrCluesters(clustersa);
             	
             	
             	
