@@ -129,11 +129,11 @@ public class PanelInformacion extends JPanel implements ActionListener
 
         informacion.setLayout( new BorderLayout( ) );
         
-        JLabel info = new JLabel("Seleccionar un tipo de análisis");
-        
-        JPanel arriba = new JPanel(new FlowLayout());
-        arriba.add(info);
-        informacion.add(arriba,BorderLayout.NORTH);
+//        JLabel info = new JLabel("Seleccionar un tipo de análisis");
+//        
+//        JPanel arriba = new JPanel(new FlowLayout());
+//        arriba.add(info);
+//        informacion.add(arriba,BorderLayout.NORTH);
         JRadioButton busqueda = new JRadioButton("Búsqueda de mercado para un producto");
         JRadioButton creacion = new JRadioButton("Creación de un nuevo producto");
         busqueda.setActionCommand("BUSQUEDA");
@@ -145,11 +145,13 @@ public class PanelInformacion extends JPanel implements ActionListener
         	busqueda.setSelected(true);
         else if(ventanaPrincipal.darTipo().equalsIgnoreCase("CREACION"))
         	creacion.setSelected(true);
+        JLabel label = new JLabel("Análsis de mercado para creación de un nuevo producto.");
         opciones.add(busqueda);
         opciones.add(creacion);
         JPanel radioGroup = new JPanel(new GridLayout(0,1));
-        radioGroup.add(busqueda);
-        radioGroup.add(creacion);
+//        radioGroup.add(busqueda);
+//        radioGroup.add(creacion);
+        radioGroup.add(label);
         informacion.add(radioGroup,BorderLayout.CENTER);
         informacion.setPreferredSize(new Dimension(350,120));
         add(informacion);
